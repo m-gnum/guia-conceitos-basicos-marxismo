@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marxismo, passo a passo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+/* Layout: sumário fixo à esquerda, texto ~70ch à direita, simuladores em painéis. Paleta: laranja Claude (troca, capital, excedente) + azul-ardósia (uso, necessário). Claro por padrão; escuro pelo botão. */
+:root{
+  --bg:#faf9f5; --surface:#ffffff; --surface-2:#f2efe6; --line:#e4dfd2;
+  --fg:#1f1e1d; --muted:#625e55;
+  --brand:#d97757; --brand-ink:#b4502d; --brand-bg:#f9e8df;
+  --c2:#3f6f85; --c2-ink:#2f5a6e; --c2-bg:#e3eef3;
+  --bar-bg:#1f1e1d; --bar-fg:#faf9f5; --bar-muted:#c9c3b4;
+  --on-brand:#1f1e1d; --on-c2:#ffffff;
+  --good:#3a7a52; --good-bg:#e4f1e8; --warn:#8f5f12; --warn-bg:#f8edd6; --bad:#b03a22; --bad-bg:#f9e4de;
+  --f-display:"Newsreader",Georgia,"Times New Roman",serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1a1917; --surface:#262522; --surface-2:#2f2d29; --line:#3e3b35;
+    --fg:#f2efe8; --muted:#a8a296;
+    --brand:#e58b6b; --brand-ink:#f0a58a; --brand-bg:rgba(229,139,107,.15);
+    --c2:#6fa3ba; --c2-ink:#8fbdd1; --c2-bg:rgba(111,163,186,.16);
+    --bar-bg:#121110; --bar-fg:#f2efe8; --bar-muted:#a8a296;
+    --on-brand:#1a1917; --on-c2:#1a1917;
+    --good:#7fd0a0; --good-bg:rgba(127,208,160,.14); --warn:#f2c36f; --warn-bg:rgba(242,195,111,.14); --bad:#f09a85; --bad-bg:rgba(240,154,133,.16);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1a1917; --surface:#262522; --surface-2:#2f2d29; --line:#3e3b35;
+  --fg:#f2efe8; --muted:#a8a296;
+  --brand:#e58b6b; --brand-ink:#f0a58a; --brand-bg:rgba(229,139,107,.15);
+  --c2:#6fa3ba; --c2-ink:#8fbdd1; --c2-bg:rgba(111,163,186,.16);
+  --bar-bg:#121110; --bar-fg:#f2efe8; --bar-muted:#a8a296;
+  --on-brand:#1a1917; --on-c2:#1a1917;
+  --good:#7fd0a0; --good-bg:rgba(127,208,160,.14); --warn:#f2c36f; --warn-bg:rgba(242,195,111,.14); --bad:#f09a85; --bad-bg:rgba(240,154,133,.16);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font:16px/1.7 var(--f-body);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bar-bg)}
+a{color:var(--brand-ink);text-underline-offset:2px}
+a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:4px}
+
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bar-bg);color:var(--bar-fg);border-bottom:3px solid var(--brand);
+  padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;align-items:center;gap:12px}
+.topbar .crumb{font:500 13px/1 var(--f-body);color:var(--bar-muted);letter-spacing:.03em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar .crumb b{color:var(--bar-fg);font-weight:600}
+.theme-btn{margin-left:auto;flex:none;font:600 13px/1 var(--f-body);color:var(--bar-fg);background:transparent;border:1px solid var(--bar-muted);border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.theme-btn:hover{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.theme-btn svg{width:16px;height:16px}
+
+.shell{display:grid;grid-template-columns:270px minmax(0,1fr);gap:56px;max-width:1220px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 96px}
+nav.toc{position:sticky;top:76px;align-self:start;max-height:calc(100vh - 96px);overflow:auto;overflow-x:hidden;padding-right:8px}
+nav.toc summary{list-style:none;font:600 12px/1 var(--f-body);text-transform:uppercase;letter-spacing:.09em;color:var(--muted);padding:6px 0 14px;cursor:pointer}
+nav.toc summary::-webkit-details-marker{display:none}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+nav.toc a{display:block;text-decoration:none;color:var(--muted);font-size:13.5px;line-height:1.35;padding:6px 10px;border-radius:6px;border-left:2px solid transparent;overflow-wrap:anywhere}
+nav.toc a:hover{color:var(--fg);background:var(--surface)}
+nav.toc a.l1{font:700 11px/1.3 var(--f-body);text-transform:uppercase;letter-spacing:.09em;color:var(--brand-ink);margin-top:14px;padding-bottom:2px}
+nav.toc li:first-child a.l1{margin-top:0}
+nav.toc a.l2{color:var(--fg);font-weight:500}
+nav.toc a.active{color:var(--fg);background:var(--surface);border-left-color:var(--brand)}
+
+main{min-width:0;max-width:740px}
+.hero{display:grid;gap:16px;padding-bottom:30px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.hero .eyebrow{font:600 12px/1 var(--f-body);color:var(--brand-ink);letter-spacing:.09em;text-transform:uppercase}
+.hero h1{font:600 clamp(36px,6vw,56px)/1.04 var(--f-display);margin:0;letter-spacing:-.015em;text-wrap:balance}
+.hero .people{display:flex;flex-wrap:wrap;gap:8px}
+.hero .at{display:inline-flex;font:600 13px/1.3 var(--f-body);background:var(--brand-bg);color:var(--brand-ink);border-radius:999px;padding:6px 12px}
+.hero p.lead{font:400 20px/1.55 var(--f-display);margin:0;color:var(--fg)}
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.fact{font:500 12.5px/1 var(--f-body);padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--muted)}
+.fact b{color:var(--fg);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.legend .k-uso{background:var(--c2)} .legend .k-troca{background:var(--brand)}
+
+p.part-label{font:700 12px/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--brand-ink);margin:72px 0 -28px;padding-top:18px;border-top:2px solid var(--brand)}
+h2{font:600 32px/1.15 var(--f-display);margin:56px 0 14px;text-wrap:balance;letter-spacing:-.01em}
+h2 .n{color:var(--brand-ink);font-family:var(--f-body);font-weight:700;font-size:.52em;vertical-align:.32em;margin-right:12px;letter-spacing:.04em}
+h3{font:600 22px/1.25 var(--f-display);margin:38px 0 10px;text-wrap:balance}
+p{margin:0 0 14px}
+main ul,main ol{margin:0 0 16px;padding-left:22px}
+main li{margin:6px 0}
+.term{color:var(--brand-ink);font-weight:600}
+.uso{color:var(--c2-ink);font-weight:600}
+b.uso,.uso b{font-weight:700}
+.eq{font-family:var(--f-display);font-style:italic;font-size:1.08em;white-space:nowrap}
+.callout{padding:14px 16px;border-radius:8px;border:1px solid var(--line);background:var(--surface);margin:0 0 16px}
+.callout p:last-child{margin-bottom:0}
+.callout.key{background:var(--brand-bg);border-color:transparent}
+.callout.use{background:var(--c2-bg);border-color:transparent}
+.callout.note{background:var(--surface-2);border-color:transparent;font-size:14.5px;color:var(--muted)}
+.callout b.t{display:block;font:700 12px/1 var(--f-body);letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px;color:var(--brand-ink)}
+.callout.use b.t{color:var(--c2-ink)}
+p.note{font-size:13.5px;color:var(--muted);border-left:2px solid var(--line);padding-left:12px}
+
+.tbl{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th{font:600 11.5px/1.3 var(--f-body);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;background:var(--surface-2);padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top;line-height:1.5}
+tbody tr:first-child td{border-top:0}
+td:first-child{font-weight:600}
+td.hot{background:var(--brand-bg)}
+td.cool{background:var(--c2-bg)}
+
+figure{margin:6px 0 22px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+figure.diagram-fig{overflow-x:auto}
+.diagram-fig svg{display:block;width:100%;min-width:560px;height:auto;padding:8px 4px 4px}
+figcaption{font-size:13px;color:var(--muted);background:var(--surface);padding:10px 14px;border-top:1px solid var(--line);position:sticky;left:0}
+svg text{font-family:var(--f-body);font-size:13px;fill:var(--fg)}
+svg .m{fill:var(--muted);font-size:12px}
+svg .ttl{font-weight:700;font-size:14px}
+svg .b{font-weight:700}
+svg .hot{fill:var(--brand-ink)} svg .cool{fill:var(--c2-ink)}
+svg .bx{fill:var(--surface);stroke:var(--muted);stroke-width:1.25}
+svg .bx-hot{fill:var(--brand-bg);stroke:var(--brand);stroke-width:2}
+svg .bx-cool{fill:var(--c2-bg);stroke:var(--c2);stroke-width:2}
+svg .bx-dash{fill:var(--surface-2);stroke:var(--muted);stroke-width:1.25;stroke-dasharray:5 4}
+svg .ln{fill:none;stroke:var(--muted);stroke-width:1.5}
+svg .ln-hot{fill:none;stroke:var(--brand);stroke-width:2}
+svg .ln-cool{fill:none;stroke:var(--c2);stroke-width:2}
+svg .ln-div{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:4 4}
+svg .mk{fill:var(--muted)} svg .mk-hot{fill:var(--brand)} svg .mk-cool{fill:var(--c2)}
+
+/* simuladores */
+.widget{border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:0 0 22px;overflow:hidden}
+.widget>header{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;padding:12px 16px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.widget>header b{font:700 12px/1 var(--f-body);letter-spacing:.09em;text-transform:uppercase;color:var(--brand-ink)}
+.widget>header span{font-size:13px;color:var(--muted)}
+.widget .body{padding:16px;display:grid;gap:14px}
+.ctl{display:grid;gap:6px}
+.ctl label{font-size:13.5px;font-weight:600;display:flex;justify-content:space-between;gap:12px}
+.ctl label output{font-weight:700;color:var(--brand-ink);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--brand);margin:4px 0}
+select{width:100%;font:500 14px/1.3 var(--f-body);padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{font:600 13.5px/1 var(--f-body);padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.two>div{border-radius:8px;padding:12px 14px;font-size:14.5px;line-height:1.55;min-width:0}
+.two .u{background:var(--c2-bg)} .two .t{background:var(--brand-bg)}
+.two h4{margin:0 0 6px;font:700 11.5px/1.2 var(--f-body);letter-spacing:.09em;text-transform:uppercase}
+.two .u h4{color:var(--c2-ink)} .two .t h4{color:var(--brand-ink)}
+.bar{display:flex;height:34px;border-radius:6px;overflow:hidden;background:var(--surface-2);gap:2px}
+.bar>div{display:flex;align-items:center;justify-content:center;font:700 12px/1 var(--f-body);white-space:nowrap;overflow:hidden;min-width:0;transition:width .25s}
+.bar .s-brand{background:var(--brand);color:var(--on-brand)}
+.bar .s-c2{background:var(--c2);color:var(--on-c2)}
+.bar .s-gray{background:var(--muted);color:var(--bg)}
+.row-l{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted);margin-bottom:4px}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.readout div{background:var(--surface-2);border-radius:8px;padding:10px 12px}
+.readout small{display:block;font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+.readout b{font:600 22px/1.2 var(--f-display);font-variant-numeric:tabular-nums}
+.readout b.hot{color:var(--brand-ink)} .readout b.cool{color:var(--c2-ink)}
+.verdict{margin:0;font-size:14.5px;padding:10px 12px;border-radius:8px;background:var(--brand-bg)}
+.chart svg{display:block;width:100%;height:auto;min-width:0}
+@media (prefers-reduced-motion:reduce){.bar>div{transition:none}}
+
+/* mapa da jornada */
+.map{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 18px}
+.map>div{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:12px}
+.map h4{margin:0 0 8px;font:700 11px/1.25 var(--f-body);letter-spacing:.09em;text-transform:uppercase;color:var(--brand-ink)}
+.map ol{margin:0;padding-left:20px;font-size:13.5px;line-height:1.4}
+.map li{margin:5px 0}
+.map a{color:var(--fg)}
+
+/* marcas */
+.brands{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:0 0 14px}
+.brands>div{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:12px}
+.brands h4{margin:0 0 8px;font:600 17px/1.2 var(--f-display)}
+.brands span{display:inline-block;font-size:12.5px;padding:3px 8px;margin:0 4px 4px 0;border-radius:999px;background:var(--brand-bg);color:var(--brand-ink)}
+
+/* modos de produção */
+ol.steps{list-style:none;padding:0;margin:0 0 18px;display:flex;flex-wrap:wrap;gap:8px}
+ol.steps li{margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-size:13.5px;font-weight:600}
+ol.steps li+li::before{content:"→";color:var(--muted);margin-right:10px;font-weight:400}
+ol.steps li.now{background:var(--brand-bg);border-color:var(--brand)}
+ol.steps li.future{background:var(--c2-bg);border-color:var(--c2)}
+
+details.gloss{border:1px solid var(--line);border-radius:8px;background:var(--surface);margin:0 0 10px;padding:0 14px}
+details.gloss summary{cursor:pointer;padding:12px 0;font-weight:600}
+details.gloss dl{margin:0 0 12px}
+details.gloss dt{font-weight:700;color:var(--brand-ink);margin-top:10px}
+details.gloss dd{margin:2px 0 0}
+.sources li{font-size:13.5px}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:20px;padding-block:20px 72px}
+  nav.toc{position:static;max-height:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px;background:var(--surface)}
+  nav.toc summary{padding:10px 0}
+  .map{grid-template-columns:1fr 1fr}
+  h2{font-size:27px}
+}
+@media (max-width:560px){
+  .two{grid-template-columns:1fr}
+  .map{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="crumb"><b>Marxismo</b> · guia didático</span>
+  <button class="theme-btn" id="theme-btn" type="button" aria-label="Alternar tema"><span id="theme-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span><span id="theme-txt">Modo escuro</span></button>
+</header>
+<div class="shell">
+  <nav class="toc" aria-label="Sumário">
+    <details open id="toc-details"><summary>Sumário</summary>
+      <ol><li><a class="l2" href="#intro">Como ler este guia</a></li><li><a class="l1" href="#parte-1">Parte I · A mercadoria</a></li><li><a class="l2" href="#valor-de-uso-e-troca">1 Valor de uso e valor de troca</a></li><li><a class="l2" href="#trabalho-e-valor">2 Trabalho e valor: de onde vem o valor de troca</a></li><li><a class="l2" href="#dinheiro-e-fetichismo">3 Dinheiro e fetichismo da mercadoria</a></li><li><a class="l1" href="#parte-2">Parte II · Capital e exploração</a></li><li><a class="l2" href="#capital">4 O que é capital</a></li><li><a class="l2" href="#classes">5 Classes e a força de trabalho</a></li><li><a class="l2" href="#mais-valia">6 Mais-valia: a exploração na produção</a></li><li><a class="l1" href="#parte-3">Parte III · A dinâmica do capital</a></li><li><a class="l2" href="#acumulacao">7 Acumulação: crescer ou quebrar</a></li><li><a class="l2" href="#oligopolios">8 Concentração, centralização e oligopólios</a></li><li><a class="l2" href="#pequena-burguesia">9 A pequena burguesia e a classe trabalhadora</a></li><li><a class="l1" href="#parte-4">Parte IV · Crise e superação</a></li><li><a class="l2" href="#crise">10 Por que o capitalismo entra em crise</a></li><li><a class="l2" href="#superacao">11 A superação</a></li><li><a class="l2" href="#apoio">Para continuar</a></li></ol>
+    </details>
+  </nav>
+  <main>
+    <section class="hero">
+      <span class="eyebrow">Guia didático · atualizado em 16/11/2026</span>
+      <h1>Marxismo, passo a passo</h1>
+      <div class="people"><span class="at">@Magnum Queiroz Dos Santos</span></div>
+      <p class="lead">Da mercadoria à crise do capitalismo e à sua superação, em uma sequência em que cada conceito explica o seguinte.</p>
+      <div class="facts"><span class="fact"><b>11</b> conceitos</span><span class="fact"><b>4</b> partes</span><span class="fact"><b>7</b> simuladores</span></div>
+      <div class="legend"><span><i class="k-uso"></i>azul: valor de uso, trabalho necessário</span><span><i class="k-troca"></i>laranja: valor de troca, capital, excedente</span></div>
+    </section>
+    <h2 id="intro">Como ler este guia</h2>
+<p>Este guia explica alguns conceitos básicos do marxismo em uma ordem em que <b>cada conceito prepara o seguinte</b>. A trilha começa na menor célula do capitalismo, a mercadoria, e termina na crise do sistema e na proposta de superá-lo.</p>
+<div class="callout key"><b class="t">O fio condutor</b><p>Toda mercadoria tem um <span class="uso">valor de uso</span> (serve para algo) e um <span class="term">valor de troca</span> (troca-se por outras coisas). No capitalismo, o que manda é o valor de troca. Essa tensão aparece em todas as etapas: ela dá origem ao capital, explica a exploração, move a concentração e causa a crise. A superação proposta por Marx volta a colocar o valor de uso no centro.</p></div>
+
+<div class="map">
+  <div><h4>I · A mercadoria</h4><ol start="1"><li><a href="#valor-de-uso-e-troca">Valor de uso e de troca</a></li><li><a href="#trabalho-e-valor">Trabalho e valor</a></li><li><a href="#dinheiro-e-fetichismo">Dinheiro e fetichismo</a></li></ol></div>
+  <div><h4>II · Capital e exploração</h4><ol start="4"><li><a href="#capital">O que é capital</a></li><li><a href="#classes">Classes e força de trabalho</a></li><li><a href="#mais-valia">Mais-valia</a></li></ol></div>
+  <div><h4>III · Dinâmica do capital</h4><ol start="7"><li><a href="#acumulacao">Acumulação</a></li><li><a href="#oligopolios">Concentração e oligopólios</a></li><li><a href="#pequena-burguesia">Pequena burguesia</a></li></ol></div>
+  <div><h4>IV · Crise e superação</h4><ol start="10"><li><a href="#crise">Por que entra em crise</a></li><li><a href="#superacao">A superação</a></li></ol></div>
+</div>
+<p class="note">Os números dos simuladores são ilustrativos e servem para mostrar a lógica. Os fatos citados nas seções 1 (moradia, alimento e roupa), 8 (Uber) e 10 (crise) são reais e têm fonte no final da página.</p>
+
+<p class="part-label" id="parte-1">Parte I · A mercadoria</p>
+<h2 id="valor-de-uso-e-troca"><span class="n">1 </span>Valor de uso e valor de troca</h2>
+<p>Marx abre <i>O Capital</i> pela mercadoria, porque no capitalismo a riqueza das sociedades capitalistas aparece como uma imensa coleção de mercadorias. Toda mercadoria é, ao mesmo tempo, duas coisas.</p>
+<ul>
+  <li><span class="uso">Valor de uso:</span> a utilidade concreta de um bem. O pão mata a fome, a casa abriga, o casaco aquece. É uma qualidade: depende do que a coisa é.</li>
+  <li><span class="term">Valor de troca:</span> a proporção em que uma mercadoria se troca por outras. Marx usa o exemplo de 20 varas de linho que valem 1 casaco. É uma quantidade: não diz nada sobre para que a coisa serve.</li>
+</ul>
+
+<div class="widget" id="w-uso">
+  <header><b>Experimente</b><span>Escolha um exemplo e compare as duas faces.</span></header>
+  <div class="body">
+    <div class="seg" role="group" aria-label="Exemplos"><button type="button" data-k="pao" aria-pressed="true">Pão</button><button type="button" data-k="casa" aria-pressed="false">Casa</button><button type="button" data-k="agua" aria-pressed="false">Água e diamante</button></div>
+    <div class="two"><div class="u"><h4>Valor de uso</h4><div id="wu-u"></div></div><div class="t"><h4>Valor de troca</h4><div id="wu-t"></div></div></div>
+  </div>
+</div>
+
+<p>Repare que as duas faces podem se separar. Uma pessoa pode precisar muito de uma coisa (valor de uso) e mesmo assim não conseguir comprá-la. No mercado, <b>necessidade sem dinheiro não conta como demanda</b>.</p>
+<div class="callout key"><b class="t">O ponto de virada do capitalismo</b><p>Numa padaria de bairro, o dono ainda pode produzir pensando em quem vai comer. No capitalismo desenvolvido, produz-se o que vende com lucro. O valor de uso continua existindo, mas passa a ser apenas o <i>suporte</i> do valor de troca: só se faz o que tem comprador.</p></div>
+
+<h3 id="uso-troca-na-pratica">Na prática: três casos reais</h3>
+<p>Essa separação aparece em notícias e relatórios. Três exemplos documentados (as fontes estão no final da página):</p>
+<div class="callout"><b class="t">Moradia · São Paulo e Brasil</b><p>Segundo reportagens sobre o Censo 2022 do IBGE, a capital paulista tinha cerca de 588 mil imóveis vagos, o dobro de 2010, enquanto o censo municipal de 2021 contou cerca de 31,9 mil pessoas em situação de rua. No país, as mesmas reportagens falam em cerca de 11 milhões de domicílios vagos ou de uso ocasional e um déficit de cerca de 6 milhões de moradias. Nem todo imóvel vago está disponível, porque muitos estão à venda ou à espera de comprador. É exatamente esse o ponto: o imóvel cumpre o papel de valor de troca (um ativo à venda) sem cumprir o de uso (abrigar alguém).</p></div>
+<div class="callout"><b class="t">Alimento · mundo</b><p>O relatório Food Waste Index 2024, do Programa das Nações Unidas para o Meio Ambiente (PNUMA), estimou que o mundo desperdiçou 1,05 bilhão de toneladas de alimentos em 2022, cerca de 19% de todo o alimento disponível para consumo. Os domicílios respondem por 60% disso. No mesmo período, cerca de 783 milhões de pessoas passavam fome, número citado pela direção do programa. Boa parte do desperdício acontece em casa, e não por decisão do mercado, mas o contraste vale: a comida existe, a fome também, e as duas não se encontram.</p></div>
+<div class="callout"><b class="t">Roupa · fast fashion no Atacama</b><p>No deserto do Atacama, no Chile, estimativas divulgadas pela agência AFP em 2021 indicam que cerca de 59 mil toneladas de roupas usadas e encalhadas chegam por ano ao porto de Iquique, e que ao menos 39 mil toneladas acabam despejadas em lixões no deserto. Peças que ainda vestem, mas não acham comprador, viram resíduo: o valor de uso se perde porque o valor de troca não se realizou.</p></div>
+
+<h2 id="trabalho-e-valor"><span class="n">2 </span>Trabalho e valor: de onde vem o valor de troca</h2>
+<p>Se um casaco e 20 varas de linho se trocam, eles têm algo em comum que não é a utilidade (casaco e linho servem para coisas diferentes). Para Marx, o que têm em comum é serem <b>produtos de trabalho humano</b>.</p>
+<ul>
+  <li><b>Trabalho concreto:</b> o ato específico de costurar, cozinhar ou programar. Cria valor de uso.</li>
+  <li><b>Trabalho abstrato:</b> o trabalho humano em geral, medido em tempo. Cria valor.</li>
+</ul>
+<p>O <span class="term">valor</span> de uma mercadoria é medido pelo <b>tempo de trabalho socialmente necessário</b> para produzi-la, isto é, o tempo exigido nas condições médias de produtividade da sociedade. Não importa quanto tempo uma pessoa específica demorou.</p>
+<p>O <b>preço</b> é a expressão do valor em dinheiro. Ele oscila com a oferta e a demanda, mas em torno do valor.</p>
+
+<div class="widget" id="w-trab">
+  <header><b>Experimente</b><span>Uma fábrica faz uma camiseta em 2 horas. Quanto tempo o artesão leva?</span></header>
+  <div class="body">
+    <div class="ctl"><label for="wt-h">Tempo do artesão por camiseta <output id="wt-o">10 h</output></label><input id="wt-h" type="range" min="2" max="12" step="1" value="10"></div>
+    <div><div class="row-l"><span>Trabalho que o artesão gastou</span><span id="wt-a"></span></div><div class="bar"><div class="s-gray" id="wt-ba"></div></div></div>
+    <div><div class="row-l"><span>Trabalho que o mercado reconhece (média social: 2 h)</span><span>2 h</span></div><div class="bar"><div class="s-brand" id="wt-bb" style="width:16.7%"></div></div></div>
+    <p class="verdict" id="wt-v"></p>
+  </div>
+</div>
+
+<h2 id="dinheiro-e-fetichismo"><span class="n">3 </span>Dinheiro e fetichismo da mercadoria</h2>
+<p>Quando a troca se generaliza, uma mercadoria assume o papel de medida de todas as outras: o <b>dinheiro</b>, ou equivalente geral. Todo valor passa a ser expresso em preço.</p>
+<p>Isso tem um efeito que Marx chama de <span class="term">fetichismo da mercadoria</span>. No mercado, só vemos coisas com preços. A relação social entre as pessoas que produziram aquela coisa, em quais condições e com qual jornada, desaparece da vista. Parece que as coisas se relacionam entre si ("a camiseta vale 59,90"), quando na verdade são pessoas que se relacionam por meio das coisas.</p>
+
+<figure class="diagram-fig">
+<svg viewBox="0 0 620 250" role="img" aria-label="O preço de uma camiseta é só um número; por trás dele há uma cadeia de trabalho de várias pessoas que o comprador não vê.">
+  <defs><marker id="fe-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk-hot"/></marker></defs>
+  <rect class="bx-hot" x="20" y="20" width="176" height="64" rx="8"/>
+  <text x="108" y="46" text-anchor="middle" class="b">Camiseta</text>
+  <text x="108" y="68" text-anchor="middle" class="hot b" style="font-size:18px">R$ 59,90</text>
+  <text x="206" y="40" class="m">o que o mercado mostra</text>
+  <path class="ln-hot" d="M310 140 V52 H202" marker-end="url(#fe-a)"/>
+  <text x="322" y="108" class="m">tudo isso vira só um número</text>
+  <rect class="bx-dash" x="20" y="140" width="104" height="58" rx="8"/><text x="72" y="166" text-anchor="middle" class="b">Plantio</text><text x="72" y="184" text-anchor="middle" class="m">do algodão</text>
+  <rect class="bx-dash" x="140" y="140" width="104" height="58" rx="8"/><text x="192" y="174" text-anchor="middle" class="b">Fiação</text>
+  <rect class="bx-dash" x="260" y="140" width="100" height="58" rx="8"/><text x="310" y="174" text-anchor="middle" class="b">Tecelagem</text>
+  <rect class="bx-dash" x="376" y="140" width="104" height="58" rx="8"/><text x="428" y="174" text-anchor="middle" class="b">Costura</text>
+  <rect class="bx-dash" x="496" y="140" width="104" height="58" rx="8"/><text x="548" y="166" text-anchor="middle" class="b">Transporte</text><text x="548" y="184" text-anchor="middle" class="m">e loja</text>
+  <text x="310" y="226" text-anchor="middle" class="m">o que o preço esconde: o trabalho de muitas pessoas, em condições que o comprador não vê</text>
+</svg>
+<figcaption>O preço apaga a cadeia social de trabalho. Os valores são ilustrativos.</figcaption>
+</figure>
+<div class="callout use"><b class="t">Gancho para a próxima parte</b><p>O dinheiro serve para comprar o que preciso. Mas ele também pode ser usado para <i>fazer mais dinheiro</i>. É nesse uso que o dinheiro vira capital.</p></div>
+
+<p class="part-label" id="parte-2">Parte II · Capital e exploração</p>
+<h2 id="capital"><span class="n">4 </span>O que é capital</h2>
+<p>Há duas formas de circulação. Na primeira, eu <b>vendo para comprar</b>: vendo o que produzi e uso o dinheiro para comprar o que preciso (M–D–M, de mercadoria a dinheiro e a mercadoria). O processo termina quando a necessidade é satisfeita. O fim é valor de uso.</p>
+<p>Na segunda, eu <b>compro para vender mais caro</b> (D–M–D′). O ponto de partida e o de chegada são a mesma coisa, dinheiro, só que no fim há mais dinheiro: D′ = D + ΔD. Como o objetivo é apenas ter mais, não há ponto de parada natural. Esse dinheiro que volta maior e é reinvestido é o <span class="term">capital</span>: <b>valor que se valoriza</b>.</p>
+
+<figure class="diagram-fig">
+<svg viewBox="0 0 620 230" role="img" aria-label="Circulação simples M–D–M termina quando a necessidade é satisfeita; o circuito do capital D–M–D′ volta ao início com mais dinheiro e recomeça sem ponto final.">
+  <defs>
+    <marker id="cp-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk-cool"/></marker>
+    <marker id="cp-b" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk-hot"/></marker>
+  </defs>
+  <text x="20" y="32" class="ttl cool">Circulação simples: M–D–M</text>
+  <rect class="bx-cool" x="20" y="64" width="64" height="44" rx="8"/><text x="52" y="93" text-anchor="middle" class="b" style="font-size:20px">M</text><text x="52" y="126" text-anchor="middle" class="m">mercadoria</text>
+  <rect class="bx-cool" x="124" y="64" width="64" height="44" rx="8"/><text x="156" y="93" text-anchor="middle" class="b" style="font-size:20px">D</text><text x="156" y="126" text-anchor="middle" class="m">dinheiro</text>
+  <rect class="bx-cool" x="228" y="64" width="64" height="44" rx="8"/><text x="260" y="93" text-anchor="middle" class="b" style="font-size:20px">M</text><text x="260" y="126" text-anchor="middle" class="m">mercadoria</text>
+  <path class="ln-cool" d="M86 86 H122" marker-end="url(#cp-a)"/><text x="104" y="78" text-anchor="middle" class="m">vende</text>
+  <path class="ln-cool" d="M190 86 H226" marker-end="url(#cp-a)"/><text x="208" y="78" text-anchor="middle" class="m">compra</text>
+  <text x="20" y="160" class="cool b">Termina quando a necessidade</text><text x="20" y="178" class="cool b">é satisfeita: o fim é o valor de uso.</text>
+  <path class="ln-div" d="M310 20 V210"/>
+  <text x="330" y="32" class="ttl hot">Circuito do capital: D–M–D′</text>
+  <rect class="bx-hot" x="330" y="64" width="64" height="44" rx="8"/><text x="362" y="93" text-anchor="middle" class="b" style="font-size:20px">D</text>
+  <rect class="bx-hot" x="434" y="64" width="64" height="44" rx="8"/><text x="466" y="93" text-anchor="middle" class="b" style="font-size:20px">M</text>
+  <rect class="bx-hot" x="538" y="64" width="64" height="44" rx="8"/><text x="570" y="93" text-anchor="middle" class="b" style="font-size:20px">D′</text>
+  <path class="ln-hot" d="M396 86 H432" marker-end="url(#cp-b)"/><text x="414" y="78" text-anchor="middle" class="m">compra</text>
+  <path class="ln-hot" d="M500 86 H536" marker-end="url(#cp-b)"/><text x="518" y="78" text-anchor="middle" class="m">vende</text>
+  <path class="ln-hot" d="M570 112 V140 H362 V112" marker-end="url(#cp-b)"/>
+  <text x="466" y="160" text-anchor="middle" class="m">D′ = D + ΔD, e D′ é reinvestido</text>
+  <text x="466" y="190" text-anchor="middle" class="hot b">O fim é o valor de troca, sem limite.</text>
+</svg>
+<figcaption>À esquerda a troca serve à necessidade e acaba. À direita a troca serve ao lucro e recomeça.</figcaption>
+</figure>
+<p>Duas consequências importantes:</p>
+<ul>
+  <li><b>Capital não é uma coisa.</b> Uma máquina, um prédio ou uma conta bancária só são capital quando entram nessa relação em que o valor se valoriza. Dinheiro guardado no colchão não é capital.</li>
+  <li><b>Fica uma pergunta.</b> Se mercadorias se trocam por valores equivalentes, de onde vem o ΔD? As duas próximas seções respondem.</li>
+</ul>
+
+<h2 id="classes"><span class="n">5 </span>Classes e a força de trabalho</h2>
+<p>O capitalismo é um <b>modo de produção</b> em que os meios de produção (terra, fábricas, máquinas, tecnologia) pertencem a poucos, a <span class="term">burguesia</span>. A maioria, o <span class="term">proletariado</span>, não tem nada para vender além de si mesma: precisa vender a sua <b>força de trabalho</b> para viver.</p>
+<p>Marx diz que o trabalhador é "duplamente livre". É livre porque não é escravo nem servo e pode escolher a quem se vender. E é "livre" dos meios de produção, isto é, não tem como produzir por conta própria.</p>
+
+<figure class="diagram-fig">
+<svg viewBox="0 0 620 260" role="img" aria-label="Os trabalhadores vendem força de trabalho à burguesia, que paga salário; o produto do trabalho pertence ao capitalista.">
+  <defs>
+    <marker id="cl-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk-cool"/></marker>
+    <marker id="cl-b" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk-hot"/></marker>
+  </defs>
+  <rect class="bx-hot" x="20" y="50" width="176" height="130" rx="8"/>
+  <text x="108" y="82" text-anchor="middle" class="ttl hot">Burguesia</text>
+  <text x="108" y="108" text-anchor="middle">Possui os meios</text><text x="108" y="126" text-anchor="middle">de produção</text>
+  <text x="108" y="152" text-anchor="middle" class="m">fábricas, terra, máquinas</text>
+  <rect class="bx-cool" x="424" y="50" width="176" height="130" rx="8"/>
+  <text x="512" y="82" text-anchor="middle" class="ttl cool">Trabalhadores</text>
+  <text x="512" y="108" text-anchor="middle">Só têm a própria</text><text x="512" y="126" text-anchor="middle">força de trabalho</text>
+  <text x="512" y="152" text-anchor="middle" class="m">vivem de salário</text>
+  <rect class="bx" x="238" y="96" width="144" height="40" rx="8"/>
+  <text x="310" y="120" text-anchor="middle" class="b">Produção</text>
+  <path class="ln-cool" d="M422 72 H198" marker-end="url(#cl-a)"/>
+  <text x="310" y="64" text-anchor="middle" class="m">vendem força de trabalho</text>
+  <path class="ln-hot" d="M198 168 H422" marker-end="url(#cl-b)"/>
+  <text x="310" y="160" text-anchor="middle" class="m">paga salário</text>
+  <text x="310" y="226" text-anchor="middle" class="hot b">O que é produzido pertence ao capitalista.</text>
+  <text x="310" y="246" text-anchor="middle" class="m">O salário paga o valor da força de trabalho. O produto vale mais do que isso.</text>
+</svg>
+<figcaption>A relação de classe está na produção: quem tem os meios de produção contrata quem só tem a própria força de trabalho.</figcaption>
+</figure>
+<p>A força de trabalho é uma mercadoria especial:</p>
+<ul>
+  <li>Seu <span class="term">valor</span> é o custo de reproduzir o trabalhador: comida, moradia, transporte, formação, a manutenção da família. É isso que o salário, em média, cobre.</li>
+  <li>Seu <span class="uso">valor de uso</span> é trabalhar. E trabalhar <b>cria valor</b>, mais do que a própria força de trabalho custa.</li>
+</ul>
+<p>Essa diferença é a resposta à pergunta da seção anterior.</p>
+<p class="note">Classe, nesse sentido, é uma posição na produção, não uma faixa de renda. A seção 9 volta a isso.</p>
+
+<h2 id="mais-valia"><span class="n">6 </span>Mais-valia: a exploração na produção</h2>
+<p>Pense na jornada como duas partes:</p>
+<ul>
+  <li><span class="uso">Trabalho necessário:</span> as horas em que o trabalhador produz o equivalente ao próprio salário.</li>
+  <li><span class="term">Trabalho excedente:</span> as horas seguintes, que o capitalista apropria. O valor criado nelas é a <span class="term">mais-valia</span>.</li>
+</ul>
+<p>Nada disso exige trapaça na troca. O salário pode ser o "justo" (o valor da força de trabalho), a compra e venda é legal, e mesmo assim há excedente. A exploração está no que acontece <b>depois</b> da venda, dentro da produção.</p>
+
+<div class="widget" id="w-mv">
+  <header><b>Experimente</b><span>Cada hora de trabalho cria R$ 30 de valor (número ilustrativo).</span></header>
+  <div class="body">
+    <div class="ctl"><label for="wm-j">Jornada diária <output id="wm-jo">8 h</output></label><input id="wm-j" type="range" min="6" max="14" step="1" value="8"></div>
+    <div class="ctl"><label for="wm-n">Horas de trabalho necessário para pagar o salário <output id="wm-no">4 h</output></label><input id="wm-n" type="range" min="2" max="6" step="1" value="4"></div>
+    <div><div class="row-l"><span>Jornada de trabalho (escala de 14 h)</span></div><div class="bar"><div class="s-c2" id="wm-bn"></div><div class="s-brand" id="wm-be"></div></div></div>
+    <div class="readout">
+      <div><small>Valor criado no dia</small><b id="wm-v">R$ 240</b></div>
+      <div><small>Salário (valor da força de trabalho)</small><b class="cool" id="wm-s">R$ 120</b></div>
+      <div><small>Mais-valia</small><b class="hot" id="wm-m">R$ 120</b></div>
+      <div><small>Taxa de mais-valia</small><b class="hot" id="wm-t">100%</b></div>
+    </div>
+    <p class="verdict" id="wm-x"></p>
+  </div>
+</div>
+
+<p>O capital tem dois caminhos para aumentar a mais-valia:</p>
+<ul>
+  <li><b>Mais-valia absoluta:</b> alongar a jornada. Arraste a primeira barra.</li>
+  <li><b>Mais-valia relativa:</b> aumentar a produtividade nos setores que produzem o que o trabalhador consome (alimentos, roupas, moradia). Isso barateia a vida e reduz as horas necessárias para pagar o salário, sem mexer na jornada. Arraste a segunda barra.</li>
+</ul>
+<div class="callout use"><b class="t">A jornada é disputada</b><p>A jornada de 8 horas não veio da boa vontade do capital. Marx dedica um capítulo inteiro de <i>O Capital</i> à luta pela jornada de trabalho: ela é, em boa parte, resultado de conflito entre as classes.</p></div>
+
+<p class="part-label" id="parte-3">Parte III · A dinâmica do capital</p>
+<h2 id="acumulacao"><span class="n">7 </span>Acumulação: crescer ou quebrar</h2>
+<p>A mais-valia aparece como lucro. O capitalista poderia gastá-lo, mas a <b>concorrência</b> o obriga a reinvestir: quem não investe em máquinas e organização produz mais caro e perde mercado. Acumular deixa de ser escolha e passa a ser condição para sobreviver.</p>
+
+<div class="widget" id="w-ac">
+  <header><b>Experimente</b><span>Duas empresas começam com 100 e têm lucro de 20% ao ciclo (ilustrativo).</span></header>
+  <div class="body">
+    <div class="ctl"><label for="wa-r">Parcela do lucro que a empresa B reinveste <output id="wa-o">50%</output></label><input id="wa-r" type="range" min="0" max="100" step="10" value="50"></div>
+    <div class="chart" id="wa-chart"></div>
+    <div class="readout">
+      <div><small>Empresa A, após 10 ciclos (reinveste 100%)</small><b class="hot" id="wa-a"></b></div>
+      <div><small>Empresa B, após 10 ciclos</small><b class="cool" id="wa-b"></b></div>
+      <div><small>B em relação a A</small><b id="wa-p"></b></div>
+    </div>
+  </div>
+</div>
+
+<p>O que se reinveste tem duas partes. O capital que paga trabalho vivo (<i>capital variável</i>, v) e o que compra máquinas e matérias-primas (<i>capital constante</i>, c). Com a concorrência, c tende a crescer mais que v, e a razão c/v, que Marx chama de <b>composição orgânica do capital</b>, sobe.</p>
+<p>O efeito social é o <span class="term">exército industrial de reserva</span>: a máquina dispensa trabalhadores, o desemprego cresce, e os desempregados pressionam os salários de quem está empregado.</p>
+
+<h2 id="oligopolios"><span class="n">8 </span>Concentração, centralização e oligopólios</h2>
+<p>Marx distingue dois movimentos:</p>
+<ul>
+  <li><b>Concentração:</b> cada capital cresce porque acumula.</li>
+  <li><b>Centralização:</b> capitais que já existem se fundem ou um engole o outro. O crédito é a alavanca principal: quem tem acesso a dinheiro barato compra ou esmaga quem não tem.</li>
+</ul>
+<p>O resultado é que cada setor tende a ter poucos gigantes: um <span class="term">oligopólio</span> (poucos vendedores) ou, no limite, um monopólio. Lênin, a partir de Hilferding, chamou de <b>capital financeiro</b> a fusão do capital bancário com o industrial. Baran e Sweezy falaram em <b>capital monopolista</b>. Quando poucas empresas dominam, a concorrência por preço dá lugar a marca, publicidade e barreiras de entrada.</p>
+
+<div class="widget" id="w-ol">
+  <header><b>Experimente</b><span>Fatias de mercado de um setor hipotético (ilustrativo).</span></header>
+  <div class="body">
+    <div class="ctl"><label for="wo-s">Rodadas de fusões e aquisições <output id="wo-o">0</output></label><input id="wo-s" type="range" min="0" max="3" step="1" value="0"></div>
+    <div class="bar" id="wo-bar" style="height:46px"></div>
+    <div class="readout">
+      <div><small>Empresas no setor</small><b id="wo-n"></b></div>
+      <div><small>Maior fatia</small><b class="hot" id="wo-m"></b></div>
+      <div><small>Índice HHI</small><b id="wo-h"></b></div>
+    </div>
+    <p class="note" style="margin:0">O HHI soma o quadrado da fatia de cada empresa. Quanto maior, mais concentrado é o mercado.</p>
+  </div>
+</div>
+
+<h3 id="ilusao-da-escolha">A ilusão da escolha</h3>
+<p>Dezenas de marcas de prateleiras diferentes pertencem a poucas empresas. O quadro abaixo reproduz a lógica de um infográfico que circula na internet com o nome de "ilusão da escolha" (a versão com Kraft, P&amp;G e Johnson &amp; Johnson).</p>
+<div class="brands">
+  <div><h4>Nestlé</h4><span>Nescafé</span><span>KitKat</span><span>Ninho</span><span>Purina</span></div>
+  <div><h4>Procter &amp; Gamble</h4><span>Gillette</span><span>Pampers</span><span>Oral-B</span><span>Pantene</span></div>
+  <div><h4>Unilever</h4><span>Dove</span><span>Hellmann's</span><span>Knorr</span><span>Omo</span></div>
+  <div><h4>Johnson &amp; Johnson</h4><span>Band-Aid</span><span>Neutrogena</span><span>Listerine</span></div>
+  <div><h4>Coca-Cola</h4><span>Sprite</span><span>Fanta</span><span>Del Valle</span><span>Powerade</span></div>
+  <div><h4>PepsiCo</h4><span>Lay's</span><span>Doritos</span><span>Quaker</span><span>Gatorade</span></div>
+  <div><h4>Mars</h4><span>M&amp;M's</span><span>Snickers</span><span>Twix</span><span>Pedigree</span></div>
+  <div><h4>Kellogg's</h4><span>Pringles</span><span>Pop-Tarts</span><span>Corn Flakes</span></div>
+  <div><h4>General Mills</h4><span>Cheerios</span><span>Nature Valley</span><span>Betty Crocker</span></div>
+  <div><h4>Kraft</h4><span>Oreo</span><span>Cadbury</span><span>Toblerone</span></div>
+</div>
+<p class="note">Este mapa é uma ilustração, não um retrato atual. Várias dessas empresas se dividiram, se fundiram ou venderam marcas desde que o infográfico circulou (por exemplo, a Kraft se dividiu em 2012). As marcas listadas são exemplos.</p>
+
+<h3 id="uber">Estudo de caso: a Uber e o capital financeiro</h3>
+<p>A Uber mostra a centralização funcionando em tempo real. Ela foi fundada em 2009 e, por mais de uma década, operou com <b>prejuízo operacional</b>. Só em 2023 registrou o primeiro ano de lucro operacional (cerca de US$ 1,1 bilhão), e o lucro líquido do ano ficou em cerca de US$ 1,9 bilhão, em parte por ganhos contábeis de reavaliação de investimentos. Estimativas de analistas apontam prejuízos acumulados na casa de US$ 30 bilhões.</p>
+
+<figure class="diagram-fig">
+<svg viewBox="0 0 620 160" role="img" aria-label="Linha do tempo da Uber: fundada em 2009, abre capital em 2019 e tem o primeiro ano de lucro operacional em 2023, depois de mais de uma década de prejuízo operacional.">
+  <defs><marker id="ub-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk"/></marker></defs>
+  <rect x="30" y="76" width="523" height="28" rx="4" style="fill:var(--brand);fill-opacity:.28"/>
+  <text x="40" y="95" class="b">anos de prejuízo operacional</text>
+  <path class="ln" d="M30 90 H590" marker-end="url(#ub-a)"/>
+  <path class="ln" d="M30 70 V112"/><path class="ln" d="M403 70 V112"/><path class="ln-hot" d="M553 56 V112"/>
+  <text x="30" y="132" class="b">2009</text><text x="30" y="148" class="m">fundação</text>
+  <text x="403" y="132" text-anchor="middle" class="b">2019</text><text x="403" y="148" text-anchor="middle" class="m">abertura de capital</text>
+  <text x="590" y="30" text-anchor="end" class="b hot">2023: primeiro ano de lucro operacional</text>
+  <text x="590" y="48" text-anchor="end" class="m">cerca de US$ 1,1 bi (líquido: US$ 1,9 bi)</text>
+</svg>
+<figcaption>Mais de uma década operando no negativo só é possível com acesso contínuo a capital externo. Eixo fora de escala exata.</figcaption>
+</figure>
+
+<p>Como isso foi possível, e o que significou para os concorrentes:</p>
+<ol>
+  <li><b>Quem pagou o prejuízo foram os acionistas.</b> Fundos de capital de risco e investidores institucionais aceitaram perder dinheiro durante anos em troca de uma participação futura no mercado. É o <i>capital financeiro</i> financiando a conquista de mercado de um setor que não é o dele.</li>
+  <li><b>Com isso, a empresa podia vender corridas a preços que um taxista autônomo ou uma cooperativa não conseguem acompanhar.</b> Quem vive do que arrecada precisa que a corrida cubra os custos. Quem é financiado por investidores pode cobrar menos, por um tempo, para ganhar clientes.</li>
+  <li><b>Os concorrentes menores perdem a escala.</b> Em Nova York, o preço das licenças de táxi (os <i>medallions</i>) chegou a mais de US$ 1 milhão e depois despencou, e muitos taxistas endividados quebraram. As causas são disputadas, porque o preço inflado das licenças e o crédito arriscado também contribuíram, mas o ingresso das plataformas é apontado como o choque que expôs a crise.</li>
+  <li><b>A tendência é a concentração.</b> Com poucos rivais restantes, a plataforma passa a ter poder para definir preços ao passageiro e a parcela retida do motorista. O objetivo do investimento é exatamente esse: trocar prejuízo hoje por poder de mercado amanhã.</li>
+</ol>
+<div class="callout key"><b class="t">Por que esse caso é um exemplo de centralização</b><p>Nenhum taxista foi "derrotado" por ser menos eficiente em transportar pessoas. Ele foi derrotado porque o rival tinha um volume de capital que podia ser queimado para tomar o mercado. Esse é o mecanismo da centralização: o crédito e o capital financeiro decidem quem fica.</p></div>
+<p>E os taxistas e motoristas ficam em qual classe? É a próxima seção.</p>
+
+<h2 id="pequena-burguesia"><span class="n">9 </span>A pequena burguesia e a classe trabalhadora</h2>
+<p>Se o capital se concentra, o que acontece com quem tem um pequeno negócio? Já no <i>Manifesto Comunista</i>, Marx e Engels descrevem pequenos comerciantes, artesãos e camponeses afundando aos poucos no proletariado. Eles perdem porque o capital pequeno não aguenta a concorrência da grande indústria e porque os novos métodos desvalorizam suas habilidades.</p>
+<p>O critério é a <b>relação com os meios de produção e com o trabalho alheio</b>, não a renda:</p>
+
+<figure class="diagram-fig">
+<svg viewBox="0 0 620 190" role="img" aria-label="Espectro de classes da alta burguesia aos trabalhadores; a pequena burguesia fica no meio e é empurrada para a direita pela concentração de capital.">
+  <defs>
+    <linearGradient id="es-g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--brand)"/><stop offset="1" style="stop-color:var(--c2)"/></linearGradient>
+    <marker id="es-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk"/></marker>
+  </defs>
+  <rect x="20" y="62" width="120" height="40" rx="4" style="fill:var(--brand)"/>
+  <rect x="142" y="62" width="130" height="40" rx="4" style="fill:var(--brand);fill-opacity:.6"/>
+  <rect x="274" y="62" width="150" height="40" rx="4" style="fill:url(#es-g)"/>
+  <rect x="426" y="62" width="174" height="40" rx="4" style="fill:var(--c2)"/>
+  <text x="80" y="50" text-anchor="middle" class="b">Alta burguesia</text><text x="207" y="50" text-anchor="middle" class="b">Média burguesia</text>
+  <text x="349" y="50" text-anchor="middle" class="b">Pequena burguesia</text><text x="513" y="50" text-anchor="middle" class="b">Classe trabalhadora</text>
+  <text x="80" y="122" text-anchor="middle" class="m">vive do capital</text><text x="207" y="122" text-anchor="middle" class="m">capital + gestão</text>
+  <text x="349" y="122" text-anchor="middle" class="m">capital pequeno + próprio trabalho</text><text x="513" y="122" text-anchor="middle" class="m">vive do próprio trabalho</text>
+  <path class="ln" d="M300 148 H560" marker-end="url(#es-a)"/>
+  <text x="430" y="170" text-anchor="middle" class="m">concorrência, dívida e concentração empurram para cá</text>
+</svg>
+<figcaption>A pequena burguesia tem um pé em cada lado, mas a pressão do capital grande a empurra para o lado do trabalho.</figcaption>
+</figure>
+
+<div class="tbl"><table>
+<thead><tr><th>Posição</th><th>Meios de produção?</th><th>Contrata trabalho alheio?</th><th>Vive principalmente de</th></tr></thead>
+<tbody>
+<tr><td>Alta burguesia</td><td class="hot">Sim, em grande escala</td><td>Sim, muito</td><td>Lucro, juros e dividendos</td></tr>
+<tr><td>Pequena burguesia empregadora (dono de padaria com poucos funcionários)</td><td>Sim, pequenos</td><td>Pouco</td><td>Lucro mais o próprio trabalho</td></tr>
+<tr><td>Pequena burguesia autônoma (taxista com carro e licença, comerciante sozinho)</td><td>Sim, pequenos</td><td>Não</td><td>O próprio trabalho</td></tr>
+<tr><td>Classe trabalhadora assalariada (operária, professor, analista)</td><td class="cool">Não</td><td>Não</td><td>Salário</td></tr>
+<tr><td>Motorista de aplicativo</td><td>Tem o carro, mas a plataforma define preço e demanda</td><td>Não</td><td>O próprio trabalho, organizado pela plataforma</td></tr>
+</tbody></table></div>
+
+<p>Por que o pequeno proprietário se aproxima mais dos trabalhadores do que da alta burguesia? Porque seus <b>interesses materiais</b> coincidem: depende do próprio trabalho, vive endividado com os mesmos bancos, paga aluguel, disputa cliente com as grandes redes e hoje com as plataformas. Quando o capital grande avança, ele perde o negócio e passa a vender trabalho. Os taxistas que perderam clientes para a Uber, e os motoristas de aplicativo que dirigem para ela, são duas etapas desse mesmo movimento.</p>
+<p>Há também uma ambivalência típica: o pequeno burguês <b>vive como trabalhador, mas aspira a ser capitalista</b>. Por isso, muitas vezes se identifica com a ideologia dos grandes mesmo tendo interesses mais próximos dos trabalhadores.</p>
+
+<div class="widget" id="w-cl">
+  <header><b>Experimente</b><span>Descubra a posição de classe pelos critérios de Marx. Os padrões são de uma pessoa assalariada.</span></header>
+  <div class="body">
+    <div class="ctl"><label for="wc-1">Possui meios de produção?</label><select id="wc-1"><option value="nao" selected>Não (só bens de uso pessoal)</option><option value="peq">Sim, pequenos (uma loja, ferramentas, um carro de trabalho)</option><option value="gde">Sim, grandes (empresas, terras, controle acionário)</option></select></div>
+    <div class="ctl"><label for="wc-2">Contrata trabalho assalariado?</label><select id="wc-2"><option value="nao" selected>Não</option><option value="poucos">Poucos funcionários</option><option value="muitos">Muitos funcionários</option></select></div>
+    <div class="ctl"><label for="wc-3">Principal fonte de renda</label><select id="wc-3"><option value="salario" selected>Salário</option><option value="proprio">Trabalho por conta própria</option><option value="lucro">Lucros, juros, dividendos ou aluguéis</option></select></div>
+    <p class="verdict" id="wc-r"></p>
+  </div>
+</div>
+<div class="callout note"><b class="t">Zonas de fronteira</b><p>Assalariados de renda alta e de cargos de gestão seguem sendo debatidos na tradição marxista. A posição deles depende de quanto controlam a produção e de quanto ainda dependem do salário.</p></div>
+
+<p class="part-label" id="parte-4">Parte IV · Crise e superação</p>
+<h2 id="crise"><span class="n">10 </span>Por que o capitalismo entra em crise</h2>
+<p>Para Marx, a crise não é um acidente. Ela nasce das próprias regras do sistema. Há quatro mecanismos, que se combinam.</p>
+<ol>
+  <li><b>Anarquia da produção.</b> Cada empresa decide sozinha o que produzir e quanto. Ninguém coordena. O mercado só avisa que errou depois, quando o estoque encalha.</li>
+  <li><b>Produzir mais do que se pode comprar.</b> Cada capitalista quer pagar salários menores, porque salário é custo. Mas todos precisam de gente com dinheiro para comprar, e o dinheiro de quem compra vem, em boa parte, dos salários pagos por outros capitalistas. A capacidade de produzir cresce mais rápido do que o poder de compra das massas. Surge a <span class="term">superprodução</span>: não é excesso do que as pessoas precisam, e sim do que elas conseguem pagar.</li>
+  <li><b>Tendência de queda da taxa de lucro.</b> Veja o simulador abaixo.</li>
+  <li><b>Crédito e especulação.</b> O crédito adia e amplia o problema, e quando a bolha estoura a crise vira financeira.</li>
+</ol>
+
+<div class="widget" id="w-lu">
+  <header><b>Experimente</b><span>Taxa de lucro = mais-valia ÷ (capital constante + capital variável).</span></header>
+  <div class="body">
+    <div class="ctl"><label for="wl-c">Composição orgânica (c/v): quanto de máquina para cada R$ 1 de salário <output id="wl-co">1,0</output></label><input id="wl-c" type="range" min="0.5" max="6" step="0.5" value="1"></div>
+    <div class="ctl"><label for="wl-m">Taxa de exploração (m/v) <output id="wl-mo">100%</output></label><input id="wl-m" type="range" min="0.5" max="2" step="0.1" value="1"></div>
+    <div><div class="bar"><div class="s-gray" id="wl-bc"></div><div class="s-c2" id="wl-bv"></div></div><div class="row-l" style="margin-top:4px"><span>capital constante (c) e variável (v), escala fixa</span><span id="wl-bm"></span></div></div>
+    <div class="readout"><div><small>Taxa de lucro</small><b class="hot" id="wl-r"></b></div></div>
+    <p class="verdict" id="wl-x"></p>
+  </div>
+</div>
+<p>Com a concorrência, c/v sobe (mais máquinas por trabalhador) e a taxa de lucro <i>tende</i> a cair, mesmo com exploração constante. Marx lista contratendências: aumentar a exploração (segundo controle do simulador), baratear máquinas, abrir mercados externos. Elas adiam a queda, mas não a eliminam.</p>
+
+<figure class="diagram-fig">
+<svg viewBox="0 0 620 290" role="img" aria-label="Ciclo da crise: expansão, superprodução, queda dos lucros, calotes e demissões, destruição de capital e retomada com mais concentração.">
+  <defs><marker id="cr-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk"/></marker></defs>
+  <rect class="bx-cool" x="215" y="22" width="190" height="46" rx="8"/><text x="310" y="42" text-anchor="middle" class="b">Expansão</text><text x="310" y="58" text-anchor="middle" class="m">lucro alto, crédito farto</text>
+  <rect class="bx-hot" x="414" y="74" width="190" height="46" rx="8"/><text x="509" y="94" text-anchor="middle" class="b">Superprodução</text><text x="509" y="110" text-anchor="middle" class="m">oferta maior que a demanda</text>
+  <rect class="bx" x="414" y="180" width="190" height="46" rx="8"/><text x="509" y="200" text-anchor="middle" class="b">Queda dos lucros</text><text x="509" y="216" text-anchor="middle" class="m">estoque encalhado, preço cai</text>
+  <rect class="bx" x="215" y="232" width="190" height="46" rx="8"/><text x="310" y="252" text-anchor="middle" class="b">Calotes e demissões</text><text x="310" y="268" text-anchor="middle" class="m">o crédito trava</text>
+  <rect class="bx-hot" x="16" y="180" width="190" height="46" rx="8"/><text x="111" y="200" text-anchor="middle" class="b">Destruição de capital</text><text x="111" y="216" text-anchor="middle" class="m">falências, fábricas paradas</text>
+  <rect class="bx-cool" x="16" y="74" width="190" height="46" rx="8"/><text x="111" y="94" text-anchor="middle" class="b">Retomada</text><text x="111" y="110" text-anchor="middle" class="m">sobram os maiores</text>
+  <path class="ln" d="M405 45 H509 V72" marker-end="url(#cr-a)"/>
+  <path class="ln" d="M509 121 V178" marker-end="url(#cr-a)"/>
+  <path class="ln" d="M509 227 V255 H407" marker-end="url(#cr-a)"/>
+  <path class="ln" d="M213 255 H111 V228" marker-end="url(#cr-a)"/>
+  <path class="ln" d="M111 179 V122" marker-end="url(#cr-a)"/>
+  <path class="ln" d="M111 73 V45 H213" marker-end="url(#cr-a)"/>
+  <text x="310" y="124" text-anchor="middle" class="b">Cada volta do ciclo</text>
+  <text x="310" y="144" text-anchor="middle" class="m">destrói parte do capital</text>
+  <text x="310" y="162" text-anchor="middle" class="m">e concentra o que sobra</text>
+</svg>
+<figcaption>A crise não encerra o capitalismo por si só. Ela o reorganiza, normalmente com menos empresas e mais concentração.</figcaption>
+</figure>
+
+<h3 id="crise-fatos">Três fatos reais</h3>
+<div class="callout"><b class="t" style="color:var(--brand-ink)">Década de 1930 · café queimado</b><p>Na Grande Depressão, a queda da demanda mundial encalhou a produção. O Brasil comprou e queimou milhões de sacas de café para sustentar o preço, enquanto a fome e o desemprego se espalhavam. A mercadoria existia, a necessidade também, e as duas não se encontravam.</p></div>
+<div class="callout"><b class="t" style="color:var(--brand-ink)">2008 · a casa como ativo financeiro</b><p>A crise começou no crédito imobiliário dos EUA. O banco Lehman Brothers faliu em 15 de setembro de 2008, e o governo autorizou até US$ 700 bilhões para socorrer instituições financeiras. Estimativas indicam cerca de 4 milhões de execuções hipotecárias no período. Casas feitas para morar viraram papéis financeiros: milhões de famílias saíram delas, e o valor de troca (o ativo) mandou no valor de uso (a moradia).</p></div>
+<div class="callout"><b class="t" style="color:var(--brand-ink)">Abril de 2020 · petróleo com preço negativo</b><p>Em 20 de abril de 2020, o contrato futuro do petróleo WTI fechou em US$ −37,63 por barril: com a pandemia, a demanda despencou e os tanques de armazenagem nos EUA estavam quase cheios. Para o detentor do contrato, entregar o petróleo custava mais do que ele valia. O preço negativo foi do contrato futuro, e o Brent seguiu positivo, mas o episódio mostra um bem de enorme valor de uso sem comprador.</p></div>
+<p>Nos três casos há sobra de mercadoria, perda de valor de troca e necessidades sem atendimento. É a tensão da seção 1, agora em escala social.</p>
+
+<h2 id="superacao"><span class="n">11 </span>A superação</h2>
+<p>Marx trata o capitalismo como uma etapa histórica, não como estado natural. Cada <b>modo de produção</b> dura até que suas <span class="term">forças produtivas</span> (técnica, conhecimento, trabalho cooperativo) entrem em choque com suas <span class="term">relações de produção</span> (propriedade, classes). Então abre-se um período de transformação.</p>
+<ol class="steps" aria-label="Modos de produção, em esquema simplificado">
+  <li>Comunismo primitivo</li><li>Escravismo</li><li>Feudalismo</li><li class="now">Capitalismo</li><li class="future">Socialismo</li><li class="future">Comunismo</li>
+</ol>
+<p class="note">Esquema simplificado da sequência histórica, que a tradição marxista discute e refina.</p>
+
+<h3 id="contradicao">A contradição central</h3>
+<p>No capitalismo, a produção é cada vez mais <b>social</b>. Milhões de pessoas cooperam em cadeias globais, e uma camiseta passa por vários países. Mas a <b>apropriação continua privada</b>: o que é produzido coletivamente pertence a quem detém os meios de produção. A crise é o sintoma de que essa forma de propriedade virou um limite para a própria produção.</p>
+
+<h3 id="proposta">A proposta de Marx</h3>
+<div class="tbl"><table>
+<thead><tr><th>Dimensão</th><th>No capitalismo</th><th>Na proposta socialista</th></tr></thead>
+<tbody>
+<tr><td>Objetivo da produção</td><td class="hot">Lucro (valor de troca)</td><td class="cool">Necessidades (valor de uso)</td></tr>
+<tr><td>Meios de produção</td><td>Propriedade privada de poucos</td><td>Propriedade social</td></tr>
+<tr><td>O que se produz</td><td>Decidido pelo mercado e pela concorrência</td><td>Planejamento democrático</td></tr>
+<tr><td>Trabalho</td><td>Venda da força de trabalho por salário</td><td>Trabalho associado, com jornada menor</td></tr>
+<tr><td>Excedente</td><td>Apropriado pelo capital como lucro</td><td>Decidido coletivamente</td></tr>
+</tbody></table></div>
+
+<ul>
+  <li><b>Não é automática.</b> A crise abre uma possibilidade, mas a mudança depende da organização e da consciência política da classe trabalhadora, que precisa passar de classe "em si" (existe objetivamente) a classe "para si" (age como classe).</li>
+  <li><b>Há uma transição.</b> Na <i>Crítica do Programa de Gotha</i>, Marx descreve uma fase inferior (o socialismo), em que ainda se distribui "a cada um segundo o seu trabalho", e uma fase superior (o comunismo), regida por "de cada um segundo suas capacidades, a cada um segundo suas necessidades". Para a passagem, ele fala em "ditadura do proletariado", que significa o poder político da classe trabalhadora, em contraste com o poder atual da burguesia.</li>
+  <li><b>O sentido geral</b> é recolocar o <span class="uso">valor de uso</span> no centro: produzir para que as pessoas vivam bem, e não para que o capital cresça.</li>
+</ul>
+<div class="callout key"><b class="t">Fechando o fio</b><p>Começamos com um pão que tem valor de uso e valor de troca. Vimos como o capitalismo faz do segundo o seu objetivo, como isso gera exploração, concentração e crise, e como a alternativa proposta por Marx inverte essa ordem.</p></div>
+
+<h2 id="apoio">Para continuar</h2>
+<h3 id="glossario">Glossário</h3>
+<details class="gloss"><summary>Abrir o glossário</summary>
+<dl>
+<dt>Capital constante (c)</dt><dd>Parte do capital gasta em máquinas, instalações e matérias-primas.</dd>
+<dt>Capital variável (v)</dt><dd>Parte do capital gasta em salários (força de trabalho).</dd>
+<dt>Composição orgânica do capital</dt><dd>A razão c/v.</dd>
+<dt>Exército industrial de reserva</dt><dd>Massa de desempregados que pressiona os salários para baixo.</dd>
+<dt>Fetichismo da mercadoria</dt><dd>Aparência de que as relações sociais são relações entre coisas.</dd>
+<dt>Força de trabalho</dt><dd>Capacidade de trabalhar, vendida por salário.</dd>
+<dt>Mais-valia</dt><dd>Valor criado pelo trabalho excedente e apropriado pelo capitalista.</dd>
+<dt>Meios de produção</dt><dd>Terra, fábricas, máquinas e demais bens usados para produzir.</dd>
+<dt>Modo de produção</dt><dd>Forma como uma sociedade produz, combinando forças produtivas e relações de produção.</dd>
+<dt>Tempo de trabalho socialmente necessário</dt><dd>Tempo exigido para produzir algo nas condições médias da sociedade. Mede o valor.</dd>
+<dt>Valor de troca</dt><dd>Proporção em que uma mercadoria se troca por outras.</dd>
+<dt>Valor de uso</dt><dd>Utilidade concreta de um bem.</dd>
+</dl></details>
+
+<h3 id="leituras">Leituras recomendadas</h3>
+<ul>
+  <li>Karl Marx, <i>O Capital</i>, Livro I (capítulos 1 a 8 e 23 a 25 cobrem as seções 1 a 8 deste guia).</li>
+  <li>Karl Marx e Friedrich Engels, <i>Manifesto Comunista</i>.</li>
+  <li>Karl Marx, <i>Trabalho assalariado e capital</i> e <i>Salário, preço e lucro</i> (versões curtas e didáticas).</li>
+  <li>Karl Marx, <i>Crítica do Programa de Gotha</i>.</li>
+  <li>Rudolf Hilferding, <i>O Capital Financeiro</i>; Lênin, <i>Imperialismo, fase superior do capitalismo</i>.</li>
+  <li>Paul Baran e Paul Sweezy, <i>Capital Monopolista</i>.</li>
+  <li>David Harvey, <i>Para entender O Capital</i>.</li>
+</ul>
+
+<h3 id="fontes">Fontes dos fatos citados</h3>
+<ul class="sources">
+  <li>Imóveis vagos e déficit de moradia (Censo 2022): <a href="https://apublica.org/2023/06/censo-2022-brasil-tem-11-milhoes-de-casas-e-apartamentos-vagos/" target="_blank" rel="noopener">Agência Pública</a> e <a href="https://brasildefato.com.br/2023/07/17/o-brasil-tem-11-milhoes-de-domicilios-vazios-e-6-milhoes-de-familias-sem-ter-onde-morar/" target="_blank" rel="noopener">Brasil de Fato</a>. Os números de São Paulo (588 mil imóveis vagos; 31,9 mil pessoas em situação de rua em 2021) vêm de reportagens e não foram conferidos nas tabelas do IBGE e da prefeitura. Os dois levantamentos são de anos e metodologias diferentes.</li>
+  <li>Desperdício de alimentos: <a href="https://news.un.org/en/node/1148036" target="_blank" rel="noopener">ONU News</a>, sobre o Food Waste Index 2024 do PNUMA.</li>
+  <li>Roupas no Atacama: <a href="https://www.rte.ie/news/2021/1108/1258514-climate-change-fast-fashion-chile" target="_blank" rel="noopener">RTÉ</a> e <a href="https://www.nationalgeographic.com/environment/article/chile-fashion-pollution" target="_blank" rel="noopener">National Geographic</a>. As estimativas variam entre as fontes.</li>
+  <li>Uber, primeiro ano de lucro operacional: <a href="https://www.cityam.com/uber-reports-first-ever-full-year-operating-profit-as-chief-hails-an-inflection-point/" target="_blank" rel="noopener">City AM</a> e <a href="https://www.techspot.com/news/101824-uber-pulls-itself-out-red-first-full-year.html" target="_blank" rel="noopener">TechSpot</a>.</li>
+  <li>Prejuízo acumulado da Uber (estimativa de terceiros, não conferida nos relatórios da empresa): <a href="https://fasterthannormal.co/companies/uber" target="_blank" rel="noopener">Faster Than Normal</a>.</li>
+  <li>Licenças de táxi em Nova York: <a href="https://www.npr.org/2018/10/15/656595597/cities-made-millions-selling-taxi-medallions-now-drivers-are-paying-the-price" target="_blank" rel="noopener">NPR</a> e <a href="https://www.cnbc.com/2017/07/15/uber-lyft-take-down-not-just-cab-drivers-but-also-lenders.html" target="_blank" rel="noopener">CNBC</a>.</li>
+  <li>Crise de 2008: <a href="https://www.history.com/topics/21st-century/great-recession-timeline" target="_blank" rel="noopener">History.com</a>. As estimativas de execuções variam entre as fontes.</li>
+  <li>Petróleo em abril de 2020: <a href="https://www.eia.gov/todayinenergy/detail.php?id=43495" target="_blank" rel="noopener">U.S. Energy Information Administration</a>.</li>
+  <li>Infográfico "ilusão da escolha": <a href="https://www.businessinsider.in/these-10-companies-control-everything-you-buy/amp_articleshow/58009952.cms" target="_blank" rel="noopener">Business Insider</a> (reproduzido aqui como lista, sem as imagens originais).</li>
+</ul>
+  </main>
+</div>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var pt=function(n,d){return n.toLocaleString('pt-BR',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})};
+  var brl=function(n){return 'R$ '+pt(n)};
+
+  /* tema */
+  var root=document.documentElement, btn=$('theme-btn'), ico=$('theme-ico'), txt=$('theme-txt');
+  var SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  var MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+  function apply(t){ if(t==='dark'){root.setAttribute('data-theme','dark');ico.innerHTML=SUN;txt.textContent='Modo claro';} else {root.setAttribute('data-theme','light');ico.innerHTML=MOON;txt.textContent='Modo escuro';} }
+  var saved=null; try{saved=localStorage.getItem('guia-marxismo-theme')}catch(e){}
+  apply(saved==='dark'?'dark':'light');
+  btn.addEventListener('click',function(){ var next=root.getAttribute('data-theme')==='dark'?'light':'dark'; apply(next); try{localStorage.setItem('guia-marxismo-theme',next)}catch(e){} });
+
+  /* sumário */
+  var det=$('toc-details'), mob=window.matchMedia('(max-width:900px)');
+  if(mob.matches){ det.open=false; }
+  var links=[].slice.call(document.querySelectorAll('nav.toc a'));
+  var map={}; links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a; a.addEventListener('click',function(){ if(mob.matches) det.open=false; })});
+  if('IntersectionObserver' in window){
+    var heads=[].slice.call(document.querySelectorAll('main h2[id]'));
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(l){l.classList.remove('active')}); var a=map[e.target.id]; if(a){a.classList.add('active');} } });
+    },{rootMargin:'-80px 0px -70% 0px'});
+    heads.forEach(function(h){io.observe(h)});
+  }
+
+  /* 1. valor de uso x troca */
+  var EX={
+    pao:{u:'Alimenta. O pão feito em casa existe só por isso: alguém tem fome.',t:'Na padaria, o pão só chega a quem paga. Se não vende até o fim do dia, a sobra pode ser descartada, mesmo havendo gente com fome.'},
+    casa:{u:'Abriga, dá segurança e um lugar para viver.',t:'Um imóvel comprado para valorizar ou alugar pode ficar vazio à espera de comprador, enquanto há famílias sem moradia ou pagando aluguel que não cabe no orçamento.'},
+    agua:{u:'A água é indispensável à vida. O diamante serve para pouca coisa essencial.',t:'O diamante vale muito mais do que a água. O valor de troca não mede a utilidade. Para Marx, ele mede o trabalho socialmente necessário (seção 2).'}
+  };
+  var wu=$('w-uso');
+  function showEx(k){ $('wu-u').textContent=EX[k].u; $('wu-t').textContent=EX[k].t; [].forEach.call(wu.querySelectorAll('button'),function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-k')===k))}); }
+  [].forEach.call(wu.querySelectorAll('button'),function(b){b.addEventListener('click',function(){showEx(b.getAttribute('data-k'))})});
+  showEx('pao');
+
+  /* 2. trabalho socialmente necessário */
+  var wh=$('wt-h');
+  function trab(){
+    var h=+wh.value, pct=Math.round(200/h);
+    $('wt-o').textContent=h+' h'; $('wt-a').textContent=h+' h';
+    $('wt-ba').style.width=(h/12*100)+'%';
+    $('wt-ba').textContent=h+' h';
+    $('wt-bb').textContent='2 h';
+    $('wt-v').textContent=h===2
+      ? 'O tempo do artesão coincide com a média social: cada hora de trabalho dele vale integralmente.'
+      : 'O artesão gastou '+h+' horas, mas o mercado só reconhece 2. Cada hora dele vale '+pct+'% de uma hora média. Se cobrasse pelas '+h+' horas, a camiseta custaria '+pt(h/2,h%2?1:0)+' vezes a da fábrica, e ninguém compraria.';
+  }
+  wh.addEventListener('input',trab); trab();
+
+  /* 6. mais-valia */
+  var wj=$('wm-j'), wn=$('wm-n'), HV=30;
+  function mv(){
+    var j=+wj.value, n=+wn.value; if(n>j){n=j; wn.value=n;}
+    var val=HV*j, sal=HV*n, m=val-sal, t=Math.round((m/sal)*100);
+    $('wm-jo').textContent=j+' h'; $('wm-no').textContent=n+' h';
+    $('wm-bn').style.width=(n/14*100)+'%'; $('wm-bn').textContent=n+' h necessárias';
+    $('wm-be').style.width=((j-n)/14*100)+'%'; $('wm-be').textContent=(j-n)>0?(j-n)+' h excedentes':'';
+    $('wm-v').textContent=brl(val); $('wm-s').textContent=brl(sal); $('wm-m').textContent=brl(m); $('wm-t').textContent=t+'%';
+    $('wm-x').textContent=m===0
+      ? 'Toda a jornada paga o salário: não sobra excedente, e sem excedente não há capital.'
+      : 'De cada '+brl(val)+' que o trabalhador cria por dia, ele recebe o equivalente a '+brl(sal)+'. Os outros '+brl(m)+' ficam com o capitalista. Taxa de mais-valia: '+t+'% (excedente dividido pelo trabalho necessário).';
+  }
+  wj.addEventListener('input',mv); wn.addEventListener('input',mv); mv();
+
+  /* 7. acumulação */
+  var wr=$('wa-r'), L=0.2, T=10;
+  function series(share){ var a=[100]; for(var i=1;i<=T;i++){a.push(a[i-1]*(1+L*share));} return a; }
+  function niceStep(max){ var s=[50,100,200,250,500,1000]; for(var i=0;i<s.length;i++){ if(max/s[i]<=5) return s[i]; } return 1000; }
+  function acum(){
+    var r=+wr.value/100, A=series(1), B=series(r);
+    $('wa-o').textContent=Math.round(r*100)+'%';
+    var W=620,H=290,ml=46,mr=70,mt=16,mb=34, max=A[T], step=niceStep(max), top=Math.ceil(max/step)*step;
+    var x=function(i){return ml+(W-ml-mr)*i/T}, y=function(v){return H-mb-(H-mt-mb)*v/top};
+    var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Capital das empresas A e B ao longo de 10 ciclos">';
+    for(var v=0;v<=top;v+=step){ s+='<line x1="'+ml+'" x2="'+(W-mr)+'" y1="'+y(v)+'" y2="'+y(v)+'" style="stroke:var(--line);stroke-width:1"/><text x="'+(ml-8)+'" y="'+(y(v)+4)+'" text-anchor="end" class="m">'+v+'</text>'; }
+    for(var i=0;i<=T;i+=2){ s+='<text x="'+x(i)+'" y="'+(H-12)+'" text-anchor="middle" class="m">'+i+'</text>'; }
+    s+='<text x="'+((ml+W-mr)/2)+'" y="'+(H-0)+'" text-anchor="middle" class="m" style="font-size:11px">ciclos</text>';
+    var pa=A.map(function(v,i){return x(i)+','+y(v)}).join(' '), pb=B.map(function(v,i){return x(i)+','+y(v)}).join(' ');
+    s+='<polyline points="'+pb+'" style="fill:none;stroke:var(--c2);stroke-width:2.5"/><polyline points="'+pa+'" style="fill:none;stroke:var(--brand);stroke-width:2.5"/>';
+    s+='<circle cx="'+x(T)+'" cy="'+y(A[T])+'" r="4" style="fill:var(--brand)"/><circle cx="'+x(T)+'" cy="'+y(B[T])+'" r="4" style="fill:var(--c2)"/>';
+    s+='<text x="'+(x(T)+8)+'" y="'+(y(A[T])+4)+'" class="b hot">A</text><text x="'+(x(T)+8)+'" y="'+(y(B[T])+4)+'" class="b cool">B</text></svg>';
+    $('wa-chart').innerHTML=s;
+    $('wa-a').textContent=pt(A[T]); $('wa-b').textContent=pt(B[T]); $('wa-p').textContent=Math.round(B[T]/A[T]*100)+'%';
+  }
+  wr.addEventListener('input',acum); acum();
+
+  /* 8. oligopólio */
+  var SH=[[14,12,11,10,9,8,7,7,6,6,5,5],[26,21,17,14,12,10],[47,31,22],[69,31]], ws=$('wo-s');
+  function oli(){
+    var s=SH[+ws.value]; $('wo-o').textContent=ws.value;
+    var h=s.reduce(function(a,v){return a+v*v},0), bar=$('wo-bar'); bar.innerHTML='';
+    s.forEach(function(v){ var d=document.createElement('div'); d.className='s-brand'; d.style.width=v+'%'; d.textContent=v>=6?v+'%':''; bar.appendChild(d); });
+    $('wo-n').textContent=s.length; $('wo-m').textContent=Math.max.apply(null,s)+'%'; $('wo-h').textContent=pt(h);
+  }
+  ws.addEventListener('input',oli); oli();
+
+  /* 9. classes */
+  var CL={
+    burg:['Burguesia (média ou grande)','Vive do capital e do trabalho alheio. Sua posição é de apropriar mais-valia.'],
+    pbe:['Pequena burguesia empregadora','Tem um negócio pequeno e contrata poucos funcionários, mas ainda trabalha nele. A concorrência dos grandes e a dívida a empurram para um lado ou para o outro: crescer ou cair.'],
+    pba:['Pequena burguesia autônoma','Tem meios de produção pequenos e vive do próprio trabalho. É a posição mais pressionada pela concentração de capital e tende à proletarização.'],
+    trab:['Classe trabalhadora assalariada','Vende a força de trabalho por salário. Um salário alto não muda essa posição: o que define a classe é a relação com os meios de produção.'],
+    pc:['Trabalhador por conta própria sem capital','Sem meios de produção relevantes, vende o próprio trabalho por conta própria. É uma zona de fronteira: formalmente autônomo, na prática próximo do assalariado, como muitos motoristas de aplicativo.'],
+    rent:['Rentista de pequena escala','Vive de aluguéis ou aplicações sem ter meios de produção relevantes. É uma posição intermediária: depende do tamanho do patrimônio.'],
+    mix:['Posição intermediária','Sua combinação mistura critérios. Marx classificaria pela fonte principal da renda e pela relação com os meios de produção.']
+  };
+  function cls(){
+    var a=$('wc-1').value, b=$('wc-2').value, c=$('wc-3').value, k;
+    if(a==='gde'||b==='muitos') k='burg';
+    else if(a==='peq'&&b==='poucos') k='pbe';
+    else if(a==='peq'&&b==='nao'&&c==='proprio') k='pba';
+    else if(a==='nao'&&b==='nao'&&c==='salario') k='trab';
+    else if(a==='nao'&&b==='nao'&&c==='proprio') k='pc';
+    else if(a==='nao'&&c==='lucro') k='rent';
+    else k='mix';
+    $('wc-r').innerHTML='<b>'+CL[k][0]+'.</b> '+CL[k][1];
+  }
+  ['wc-1','wc-2','wc-3'].forEach(function(i){$(i).addEventListener('change',cls)}); cls();
+
+  /* 10. taxa de lucro */
+  var wc=$('wl-c'), wm=$('wl-m');
+  function lu(){
+    var cv=+wc.value, mvr=+wm.value, r=mvr/(cv+1)*100, tot=cv+1, maxTot=7;
+    $('wl-co').textContent=pt(cv,1); $('wl-mo').textContent=Math.round(mvr*100)+'%';
+    $('wl-bc').style.width=(cv/maxTot*100)+'%'; $('wl-bc').textContent=cv>=1.5?'c':'';
+    $('wl-bv').style.width=(1/maxTot*100)+'%'; $('wl-bv').textContent='v';
+    $('wl-bm').textContent='m = '+pt(mvr,1)+' para v = 1';
+    $('wl-r').textContent=pt(r,1)+'%';
+    $('wl-x').textContent=cv<=1&&mvr===1
+      ? 'Com c/v = 1 e exploração de 100%, a taxa de lucro é 50%. Aumente as máquinas por trabalhador (c/v) e veja a taxa cair.'
+      : 'Para cada R$ 1 de salário há R$ '+pt(cv,1)+' em máquinas e matérias-primas, e a mais-valia é R$ '+pt(mvr,1)+'. A taxa de lucro é '+pt(mvr,1)+' ÷ '+pt(tot,1)+' = '+pt(r,1)+'%.';
+  }
+  wc.addEventListener('input',lu); wm.addEventListener('input',lu); lu();
+})();
+
+</script>
+</body>
+</html>
