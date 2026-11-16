@@ -1,10 +1,12 @@
-"""Gera index.html a partir de body.html + style.css + script.js.
+"""Gera index.html a partir de body.html + style.css + script.js + logos/*.png.
 
 Uso:
     python3 build.py
 """
+import base64
 import os
 import re
+import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TITLE = "Marxismo, passo a passo"
@@ -22,11 +24,19 @@ def read(name):
 
 def toc(content):
     items = []
-    for m in re.finditer(r'<(p class="part-label"|h2) id="([^"]+)"[^>]*>(.*?)</(?:p|h2)>', content, re.S):
-        cls = "l1" if m.group(1).startswith("p") else "l2"
+    for m in re.finditer(r'<(p class="part-label"|h2|h3 data-toc) id="([^"]+)"[^>]*>(.*?)</(?:p|h2|h3)>', content, re.S):
+        cls = {"p": "l1", "h2": "l2", "h3": "l3"}[m.group(1)[:2].rstrip(" ")]
         text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", m.group(3))).strip()
         items.append(f'<li><a class="{cls}" href="#{m.group(2)}">{text}</a></li>')
     return "".join(items)
+
+
+def embed_logos(content):
+    """Troca {{logo:slug}} pelo PNG de logos/slug.png embutido como data URI."""
+    def one(m):
+        with open(os.path.join(HERE, "logos", m.group(1) + ".png"), "rb") as f:
+            return "data:image/png;base64," + base64.b64encode(f.read()).decode()
+    return re.sub(r"\{\{logo:([a-z0-9]+)\}\}", one, content)
 
 
 def page_body(content):
@@ -35,7 +45,7 @@ def page_body(content):
       <h1>{TITLE}</h1>
       <div class="people"><span class="at">@Magnum Queiroz Dos Santos</span></div>
       <p class="lead">Da mercadoria à crise do capitalismo e à sua superação, em uma sequência em que cada conceito explica o seguinte.</p>
-      <div class="facts"><span class="fact"><b>11</b> conceitos</span><span class="fact"><b>4</b> partes</span><span class="fact"><b>7</b> simuladores</span></div>
+      <div class="facts"><span class="fact"><b>11</b> conceitos</span><span class="fact"><b>4</b> partes</span><span class="fact"><b>8</b> simuladores</span></div>
       <div class="legend"><span><i class="k-uso"></i>azul: valor de uso, trabalho necessário</span><span><i class="k-troca"></i>laranja: valor de troca, capital, excedente</span></div>
     </section>"""
     return f"""<header class="topbar">
@@ -59,9 +69,11 @@ def page_body(content):
 
 
 def main():
-    content = read("body.html").strip()
+    content = embed_logos(read("body.html").strip())
     css = read("style.css")
-    page = f"""<!doctype html>
+    body = page_body(content)
+
+    local = f"""<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -73,14 +85,14 @@ def main():
 </style>
 </head>
 <body>
-{page_body(content)}
+{body}
 </body>
 </html>
 """
     with open(os.path.join(HERE, "index.html"), "w", encoding="utf-8") as f:
-        f.write(page)
-    print("ok: index.html", len(page), "bytes")
+        f.write(local)
 
+    print("ok: index.html", len(local), "bytes")
 
 if __name__ == "__main__":
     main()

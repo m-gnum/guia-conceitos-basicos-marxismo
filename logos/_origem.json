@@ -1,0 +1,137 @@
+{
+ "nestle": {
+  "file": "Nestlé textlogo.svg",
+  "license": "Public domain",
+  "bytes": 3841
+ },
+ "pg": {
+  "file": "Procter & Gamble logo.svg",
+  "license": "Public domain",
+  "bytes": 30234
+ },
+ "unilever": {
+  "file": "Unilever text logo.svg",
+  "license": "Public domain",
+  "bytes": 4256
+ },
+ "jnj": {
+  "file": "Johnson and Johnson Logo.svg",
+  "license": "Public domain",
+  "bytes": 4474
+ },
+ "cocacola": {
+  "file": "Coca-Cola logo.svg",
+  "license": "Public domain",
+  "bytes": 14385
+ },
+ "pepsico": {
+  "file": "PepsiCo logo.svg",
+  "license": "Public domain",
+  "bytes": 7389
+ },
+ "mars": {
+  "file": "Mars Incorporated 2019 logo.svg",
+  "license": "Public domain",
+  "bytes": 3618
+ },
+ "kelloggs": {
+  "file": "Kellogg's-Logo.svg",
+  "license": "Public domain",
+  "bytes": 5842
+ },
+ "generalmills": {
+  "file": "General Mills logo.svg",
+  "license": "Public domain",
+  "bytes": 10213
+ },
+ "kraftheinz": {
+  "file": "KraftHeinz.svg",
+  "license": "Public domain",
+  "bytes": 7108
+ },
+ "nescafe": {
+  "file": "Nescafé logo 2014.svg",
+  "license": "Public domain",
+  "bytes": 3900
+ },
+ "kitkat": {
+  "file": "Logo of the KitKat.svg",
+  "license": "Public domain",
+  "bytes": 15453
+ },
+ "purina": {
+  "file": "Nestlé Purina logo.svg",
+  "license": "Public domain",
+  "bytes": 4106
+ },
+ "gillette": {
+  "file": "Gillette logo.svg",
+  "license": "Public domain",
+  "bytes": 6799
+ },
+ "oralb": {
+  "file": "Oral-B logo.svg",
+  "license": "Public domain",
+  "bytes": 7937
+ },
+ "pantene": {
+  "file": "Pantene.svg",
+  "license": "Public domain",
+  "bytes": 2676
+ },
+ "dove": {
+  "file": "Dove wordmark.svg",
+  "license": "Public domain",
+  "bytes": 9359
+ },
+ "knorr": {
+  "file": "Knorr Logo 2020.svg",
+  "license": "Public domain",
+  "bytes": 13818
+ },
+ "bandaid": {
+  "file": "Band-Aid logo.svg",
+  "license": "Public domain",
+  "bytes": 5038
+ },
+ "listerine": {
+  "file": "Listerine logo.svg",
+  "license": "Public domain",
+  "bytes": 2248
+ },
+ "sprite": {
+  "file": "Sprite 2022.svg",
+  "license": "Public domain",
+  "bytes": 4843
+ },
+ "fanta": {
+  "file": "Fanta logo.svg",
+  "license": "CC BY-SA 3.0",
+  "bytes": 21375
+ },
+ "powerade": {
+  "file": "Powerade logo.svg",
+  "license": "Public domain",
+  "bytes": 2744
+ },
+ "lays": {
+  "file": "Lay's logo 2019.svg",
+  "license": "Public domain",
+  "bytes": 28324
+ },
+ "gatorade": {
+  "file": "Gatorade logo.svg",
+  "license": "Public domain",
+  "bytes": 12802
+ },
+ "mms": {
+  "file": "M&M's logo.svg",
+  "license": "Public domain",
+  "bytes": 16573
+ },
+ "cheerios": {
+  "file": "Cheerios brand logo.svg",
+  "license": "Public domain",
+  "bytes": 5889
+ }
+}

@@ -18,7 +18,7 @@
   var links=[].slice.call(document.querySelectorAll('nav.toc a'));
   var map={}; links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a; a.addEventListener('click',function(){ if(mob.matches) det.open=false; })});
   if('IntersectionObserver' in window){
-    var heads=[].slice.call(document.querySelectorAll('main h2[id]'));
+    var heads=[].slice.call(document.querySelectorAll('main h2[id], main h3[data-toc]'));
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(l){l.classList.remove('active')}); var a=map[e.target.id]; if(a){a.classList.add('active');} } });
     },{rootMargin:'-80px 0px -70% 0px'});
@@ -86,6 +86,22 @@
     $('wa-a').textContent=pt(A[T]); $('wa-b').textContent=pt(B[T]); $('wa-p').textContent=Math.round(B[T]/A[T]*100)+'%';
   }
   wr.addEventListener('input',acum); acum();
+
+  /* 7b. exército industrial de reserva */
+  var weO=$('we-o'), weP=$('we-p'), dots=$('we-dots');
+  for(var d=0;d<100;d++){ dots.appendChild(document.createElement('i')); }
+  function er(){
+    var o=+weO.value, p=+weP.value, emp=Math.min(100,Math.round(100*o/p)), res=100-emp, it=dots.children;
+    $('we-oo').textContent=pt(o,1)+'×'; $('we-po').textContent=pt(p,1)+'×';
+    for(var i=0;i<100;i++){ it[i].className = i<emp ? '' : 'res'; }
+    $('we-e').textContent=emp; $('we-r').textContent=res;
+    $('we-v').textContent = res===0
+      ? 'Sobram vagas: as empresas disputam trabalhadores, e quem trabalha tem força para pedir aumento. É o cenário em que o exército de reserva quase desaparece.'
+      : res<15
+        ? 'Há uma fila pequena de desempregados. Quem está empregado ainda negocia, mas já sente a pressão.'
+        : 'Com '+res+'% de desempregados, cada vaga tem vários candidatos. O patrão pode pagar menos e exigir mais, e quem trabalha teme perder o lugar.';
+  }
+  weO.addEventListener('input',er); weP.addEventListener('input',er); er();
 
   /* 8. oligopólio */
   var SH=[[14,12,11,10,9,8,7,7,6,6,5,5],[26,21,17,14,12,10],[47,31,22],[69,31]], ws=$('wo-s');

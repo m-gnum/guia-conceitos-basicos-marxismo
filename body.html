@@ -164,7 +164,7 @@
   <header><b>Experimente</b><span>Cada hora de trabalho cria R$ 30 de valor (número ilustrativo).</span></header>
   <div class="body">
     <div class="ctl"><label for="wm-j">Jornada diária <output id="wm-jo">8 h</output></label><input id="wm-j" type="range" min="6" max="14" step="1" value="8"></div>
-    <div class="ctl"><label for="wm-n">Horas de trabalho necessário para pagar o salário <output id="wm-no">4 h</output></label><input id="wm-n" type="range" min="2" max="6" step="1" value="4"></div>
+    <div class="ctl"><label for="wm-n">Horas necessárias para pagar o salário (caem quando a cesta do trabalhador fica mais barata) <output id="wm-no">4 h</output></label><input id="wm-n" type="range" min="2" max="6" step="1" value="4"></div>
     <div><div class="row-l"><span>Jornada de trabalho (escala de 14 h)</span></div><div class="bar"><div class="s-c2" id="wm-bn"></div><div class="s-brand" id="wm-be"></div></div></div>
     <div class="readout">
       <div><small>Valor criado no dia</small><b id="wm-v">R$ 240</b></div>
@@ -176,11 +176,41 @@
   </div>
 </div>
 
-<p>O capital tem dois caminhos para aumentar a mais-valia:</p>
+<h3 id="absoluta-relativa">Mais-valia absoluta e relativa</h3>
+<p>O capital tem dois caminhos para aumentar a mais-valia. A diferença está em qual parte da jornada muda.</p>
 <ul>
-  <li><b>Mais-valia absoluta:</b> alongar a jornada. Arraste a primeira barra.</li>
-  <li><b>Mais-valia relativa:</b> aumentar a produtividade nos setores que produzem o que o trabalhador consome (alimentos, roupas, moradia). Isso barateia a vida e reduz as horas necessárias para pagar o salário, sem mexer na jornada. Arraste a segunda barra.</li>
+  <li><b>Mais-valia absoluta:</b> a jornada aumenta (ou o ritmo fica mais intenso), e o trabalho necessário continua o mesmo. O excedente cresce porque o dia ficou mais longo. Arraste o primeiro controle do simulador.</li>
+  <li><b>Mais-valia relativa:</b> a jornada continua igual, mas o <b>trabalho necessário encolhe</b>, e o excedente cresce dentro do mesmo dia. Arraste o segundo controle.</li>
 </ul>
+
+<figure class="diagram-fig">
+<svg viewBox="0 0 620 215" role="img" aria-label="Três jornadas lado a lado: inicial com 4 horas necessárias e 4 excedentes; absoluta com 4 necessárias e 6 excedentes; relativa com 2 necessárias e 6 excedentes, na mesma jornada de 8 horas.">
+  <text x="20" y="24" class="ttl">As duas formas de aumentar o excedente (horas de uma jornada)</text>
+  <text x="20" y="62" class="b">Situação inicial</text><text x="20" y="78" class="m">jornada de 8 h</text>
+  <rect class="f-c2" x="170" y="44" width="160" height="34" rx="4"/><text x="250" y="66" text-anchor="middle" class="on-c2">4 h necessárias</text>
+  <rect class="f-br" x="332" y="44" width="160" height="34" rx="4"/><text x="412" y="66" text-anchor="middle" class="on-br">4 h excedentes</text>
+  <text x="20" y="122" class="b hot">Absoluta</text><text x="20" y="138" class="m">jornada vai a 10 h</text>
+  <rect class="f-c2" x="170" y="104" width="160" height="34" rx="4"/><text x="250" y="126" text-anchor="middle" class="on-c2">4 h necessárias</text>
+  <rect class="f-br" x="332" y="104" width="240" height="34" rx="4"/><text x="412" y="126" text-anchor="middle" class="on-br">6 h excedentes</text>
+  <text x="20" y="182" class="b hot">Relativa</text><text x="20" y="198" class="m">jornada continua 8 h</text>
+  <rect class="f-c2" x="170" y="164" width="80" height="34" rx="4"/><text x="210" y="186" text-anchor="middle" class="on-c2">2 h</text>
+  <rect class="f-br" x="252" y="164" width="240" height="34" rx="4"/><text x="372" y="186" text-anchor="middle" class="on-br">6 h excedentes</text>
+  <path class="ln-div" d="M492 38 V204"/><text x="496" y="36" class="m">8 h</text>
+</svg>
+<figcaption>Na absoluta, o dia fica mais longo. Na relativa, o dia é o mesmo, mas o tempo necessário para pagar o salário diminui. Números ilustrativos.</figcaption>
+</figure>
+
+<h3 id="como-funciona-relativa">Como a mais-valia relativa funciona</h3>
+<p>O salário compra uma cesta de bens: comida, roupa, moradia, transporte. O <b>valor da força de trabalho</b> é o tempo de trabalho social necessário para produzir essa cesta. Se a cesta fica mais barata de produzir, a força de trabalho passa a valer menos, e as horas necessárias diminuem.</p>
+<ol class="flow" aria-label="Encadeamento da mais-valia relativa">
+  <li><b>Mais produtividade</b> nas empresas que produzem o que o trabalhador consome (alimento, roupa, moradia)</li>
+  <li><b>A cesta de consumo custa menos horas</b> de trabalho para ser produzida</li>
+  <li><b>O valor da força de trabalho cai</b>, isto é, o salário "em valor" encolhe</li>
+  <li><b>Menos horas necessárias</b> e mais horas excedentes, na mesma jornada</li>
+</ol>
+<div class="callout key"><b class="t">Quais são esses setores?</b><p>São as <b>outras empresas</b>, aquelas que produzem e vendem os bens que entram na cesta do trabalhador: alimentos, roupas, produtos de higiene, materiais de construção, energia, transporte. Não se trata da máquina da fábrica onde ele trabalha, a menos que essa fábrica seja uma dessas empresas. De forma indireta, vale também para quem fornece máquinas e matérias-primas a esses setores, porque isso barateia a cesta.</p></div>
+<p><b>Exemplo (números ilustrativos).</b> A cesta diária de um trabalhador (comida, roupa, aluguel, transporte) exige 4 horas de trabalho social. A produção de alimentos e de roupas se industrializa, e a mesma cesta passa a exigir 2 horas. Numa jornada de 8 horas, o trabalhador passa a repor o salário em 2 horas, em vez de 4. As outras 6 horas são excedente. Ele pode até consumir mais do que antes, e mesmo assim a mais-valia relativa cresce, porque o valor de cada item da cesta caiu mais do que o consumo subiu.</p>
+<div class="callout use"><b class="t">E a máquina na fábrica do capitalista?</b><p>Quando um capitalista instala uma máquina melhor que a dos concorrentes, ele produz mais barato do que a média e vende pelo preço de mercado. Fica com um ganho extra, que Marx chama de <i>mais-valia extra</i>. O ganho dura pouco, porque os concorrentes copiam a técnica. Cada capitalista busca só esse ganho extra. Mas quando a técnica se generaliza nos setores que produzem a cesta do trabalhador, o resultado somado é a queda do valor da força de trabalho: a mais-valia relativa.</p></div>
 <div class="callout use"><b class="t">A jornada é disputada</b><p>A jornada de 8 horas não veio da boa vontade do capital. Marx dedica um capítulo inteiro de <i>O Capital</i> à luta pela jornada de trabalho: ela é, em boa parte, resultado de conflito entre as classes.</p></div>
 
 <p class="part-label" id="parte-3">Parte III · A dinâmica do capital</p>
@@ -202,6 +232,23 @@
 
 <p>O que se reinveste tem duas partes. O capital que paga trabalho vivo (<i>capital variável</i>, v) e o que compra máquinas e matérias-primas (<i>capital constante</i>, c). Com a concorrência, c tende a crescer mais que v, e a razão c/v, que Marx chama de <b>composição orgânica do capital</b>, sobe.</p>
 <p>O efeito social é o <span class="term">exército industrial de reserva</span>: a máquina dispensa trabalhadores, o desemprego cresce, e os desempregados pressionam os salários de quem está empregado.</p>
+
+<div class="widget" id="w-er">
+  <header><b>Experimente</b><span>Cada ponto é um trabalhador. A população trabalhadora é fixa (100).</span></header>
+  <div class="body">
+    <div class="ctl"><label for="we-o">Quanto a economia produz <output id="we-oo">1,5×</output></label><input id="we-o" type="range" min="1" max="2.5" step="0.1" value="1.5"></div>
+    <div class="ctl"><label for="we-p">Produtividade por trabalhador (máquinas) <output id="we-po">2,0×</output></label><input id="we-p" type="range" min="1" max="4" step="0.1" value="2"></div>
+    <div class="dots" id="we-dots" role="img" aria-label="Cem trabalhadores, empregados e desempregados"></div>
+    <div class="key-l"><span><i></i>empregado</span><span><i class="res"></i>desempregado (exército de reserva)</span></div>
+    <div class="readout">
+      <div><small>Empregados</small><b class="cool" id="we-e"></b></div>
+      <div><small>Exército de reserva</small><b class="hot" id="we-r"></b></div>
+    </div>
+    <p class="verdict" id="we-v"></p>
+  </div>
+</div>
+<p>A lógica é simples: o número de empregos é a produção dividida pela produtividade. Se as máquinas dobram a produtividade, a economia precisa crescer ao dobro só para manter o mesmo emprego. Quando sobram vagas, quem trabalha negocia melhor. Quando sobram trabalhadores, o patrão encontra quem aceite menos, e quem está empregado teme perder a vaga. Por isso o desemprego não é só um problema do sistema, mas também uma peça do seu funcionamento: ele mantém uma reserva de gente à disposição do capital quando a economia se expande.</p>
+<p class="note">Marx descreve três formas dessa reserva: a flutuante (entra e sai do emprego industrial), a latente (vinda do campo e de atividades que se desfazem) e a estagnada (trabalho irregular e mal pago, hoje bem visível no trabalho informal e por aplicativo).</p>
 
 <h2 id="oligopolios"><span class="n">8 </span>Concentração, centralização e oligopólios</h2>
 <p>Marx distingue dois movimentos:</p>
@@ -226,20 +273,20 @@
 </div>
 
 <h3 id="ilusao-da-escolha">A ilusão da escolha</h3>
-<p>Dezenas de marcas de prateleiras diferentes pertencem a poucas empresas. O quadro abaixo reproduz a lógica de um infográfico que circula na internet com o nome de "ilusão da escolha" (a versão com Kraft, P&amp;G e Johnson &amp; Johnson).</p>
+<p>Dezenas de marcas de prateleiras diferentes pertencem a poucas empresas. O quadro abaixo reproduz a lógica de um infográfico que circula na internet com o nome de "ilusão da escolha" (a versão com Kraft, P&amp;G e Johnson &amp; Johnson). Cada cartão traz uma empresa e algumas das marcas que ela controla.</p>
 <div class="brands">
-  <div><h4>Nestlé</h4><span>Nescafé</span><span>KitKat</span><span>Ninho</span><span>Purina</span></div>
-  <div><h4>Procter &amp; Gamble</h4><span>Gillette</span><span>Pampers</span><span>Oral-B</span><span>Pantene</span></div>
-  <div><h4>Unilever</h4><span>Dove</span><span>Hellmann's</span><span>Knorr</span><span>Omo</span></div>
-  <div><h4>Johnson &amp; Johnson</h4><span>Band-Aid</span><span>Neutrogena</span><span>Listerine</span></div>
-  <div><h4>Coca-Cola</h4><span>Sprite</span><span>Fanta</span><span>Del Valle</span><span>Powerade</span></div>
-  <div><h4>PepsiCo</h4><span>Lay's</span><span>Doritos</span><span>Quaker</span><span>Gatorade</span></div>
-  <div><h4>Mars</h4><span>M&amp;M's</span><span>Snickers</span><span>Twix</span><span>Pedigree</span></div>
-  <div><h4>Kellogg's</h4><span>Pringles</span><span>Pop-Tarts</span><span>Corn Flakes</span></div>
-  <div><h4>General Mills</h4><span>Cheerios</span><span>Nature Valley</span><span>Betty Crocker</span></div>
-  <div><h4>Kraft</h4><span>Oreo</span><span>Cadbury</span><span>Toblerone</span></div>
+  <div class="bcard"><div class="lg main"><img src="{{logo:nestle}}" alt="Nestlé"></div><div class="row"><div class="lg"><img src="{{logo:nescafe}}" alt="Nescafé"></div><div class="lg"><img src="{{logo:kitkat}}" alt="KitKat"></div><div class="lg"><img src="{{logo:purina}}" alt="Purina"></div></div><div class="tx"><span>Ninho</span><span>Nescau</span></div></div>
+  <div class="bcard"><div class="lg main"><img src="{{logo:pg}}" alt="Procter &amp; Gamble"></div><div class="row"><div class="lg"><img src="{{logo:gillette}}" alt="Gillette"></div><div class="lg"><img src="{{logo:oralb}}" alt="Oral-B"></div><div class="lg"><img src="{{logo:pantene}}" alt="Pantene"></div></div><div class="tx"><span>Pampers</span><span>Ariel</span></div></div>
+  <div class="bcard"><div class="lg main"><img src="{{logo:unilever}}" alt="Unilever"></div><div class="row"><div class="lg"><img src="{{logo:dove}}" alt="Dove"></div><div class="lg"><img src="{{logo:knorr}}" alt="Knorr"></div></div><div class="tx"><span>Hellmann's</span><span>Omo</span><span>Rexona</span></div></div>
+  <div class="bcard"><div class="lg main"><img src="{{logo:jnj}}" alt="Johnson &amp; Johnson"></div><div class="row"><div class="lg"><img src="{{logo:bandaid}}" alt="Band-Aid"></div><div class="lg"><img src="{{logo:listerine}}" alt="Listerine"></div></div><div class="tx"><span>Neutrogena</span></div></div>
+  <div class="bcard"><div class="lg main"><img src="{{logo:cocacola}}" alt="Coca-Cola"></div><div class="row"><div class="lg"><img src="{{logo:sprite}}" alt="Sprite"></div><div class="lg"><img src="{{logo:powerade}}" alt="Powerade"></div></div><div class="tx"><span>Fanta</span><span>Del Valle</span></div></div>
+  <div class="bcard"><div class="lg main"><img src="{{logo:pepsico}}" alt="PepsiCo"></div><div class="row"><div class="lg"><img src="{{logo:lays}}" alt="Lay's"></div><div class="lg"><img src="{{logo:gatorade}}" alt="Gatorade"></div></div><div class="tx"><span>Doritos</span><span>Quaker</span></div></div>
+  <div class="bcard"><div class="lg main"><img src="{{logo:mars}}" alt="Mars"></div><div class="row"><div class="lg"><img src="{{logo:mms}}" alt="M&amp;M's"></div></div><div class="tx"><span>Snickers</span><span>Twix</span><span>Pedigree</span></div></div>
+  <div class="bcard"><div class="lg main"><img src="{{logo:kelloggs}}" alt="Kellogg's"></div><div class="tx"><span>Corn Flakes</span><span>Pringles</span><span>Pop-Tarts</span></div></div>
+  <div class="bcard"><div class="lg main"><img src="{{logo:generalmills}}" alt="General Mills"></div><div class="row"><div class="lg"><img src="{{logo:cheerios}}" alt="Cheerios"></div></div><div class="tx"><span>Nature Valley</span><span>Betty Crocker</span></div></div>
+  <div class="bcard"><div class="lg main"><img src="{{logo:kraftheinz}}" alt="Kraft Heinz"></div><div class="tx"><span>Heinz</span><span>Oscar Mayer</span><span>Philadelphia</span><span>Kool-Aid</span></div></div>
 </div>
-<p class="note">Este mapa é uma ilustração, não um retrato atual. Várias dessas empresas se dividiram, se fundiram ou venderam marcas desde que o infográfico circulou (por exemplo, a Kraft se dividiu em 2012). As marcas listadas são exemplos.</p>
+<p class="note">Este mapa é uma ilustração, não um retrato atual. Várias dessas empresas se dividiram, se fundiram ou venderam marcas desde que o infográfico circulou. A Kraft, por exemplo, se dividiu em 2012, e marcas como Oreo e Cadbury passaram à Mondelēz; a Kellogg's também se dividiu em 2023. As marcas listadas são exemplos. Logos obtidos no Wikimedia Commons; as marcas pertencem aos seus titulares e aparecem aqui apenas para ilustrar o argumento.</p>
 
 <h3 id="uber">Estudo de caso: a Uber e o capital financeiro</h3>
 <p>A Uber mostra a centralização funcionando em tempo real. Ela foi fundada em 2009 e, por mais de uma década, operou com <b>prejuízo operacional</b>. Só em 2023 registrou o primeiro ano de lucro operacional (cerca de US$ 1,1 bilhão), e o lucro líquido do ano ficou em cerca de US$ 1,9 bilhão, em parte por ganhos contábeis de reavaliação de investimentos. Estimativas de analistas apontam prejuízos acumulados na casa de US$ 30 bilhões.</p>
@@ -248,7 +295,7 @@
 <svg viewBox="0 0 620 160" role="img" aria-label="Linha do tempo da Uber: fundada em 2009, abre capital em 2019 e tem o primeiro ano de lucro operacional em 2023, depois de mais de uma década de prejuízo operacional.">
   <defs><marker id="ub-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk"/></marker></defs>
   <rect x="30" y="76" width="523" height="28" rx="4" style="fill:var(--brand);fill-opacity:.28"/>
-  <text x="40" y="95" class="b">anos de prejuízo operacional</text>
+  <text x="36" y="68" class="b">anos de prejuízo operacional</text>
   <path class="ln" d="M30 90 H590" marker-end="url(#ub-a)"/>
   <path class="ln" d="M30 70 V112"/><path class="ln" d="M403 70 V112"/><path class="ln-hot" d="M553 56 V112"/>
   <text x="30" y="132" class="b">2009</text><text x="30" y="148" class="m">fundação</text>
@@ -274,7 +321,7 @@
 <p>O critério é a <b>relação com os meios de produção e com o trabalho alheio</b>, não a renda:</p>
 
 <figure class="diagram-fig">
-<svg viewBox="0 0 620 190" role="img" aria-label="Espectro de classes da alta burguesia aos trabalhadores; a pequena burguesia fica no meio e é empurrada para a direita pela concentração de capital.">
+<svg viewBox="0 0 620 205" role="img" aria-label="Espectro de classes da alta burguesia aos trabalhadores; a pequena burguesia fica no meio e é empurrada para a direita pela concentração de capital.">
   <defs>
     <linearGradient id="es-g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style="stop-color:var(--brand)"/><stop offset="1" style="stop-color:var(--c2)"/></linearGradient>
     <marker id="es-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk"/></marker>
@@ -285,10 +332,12 @@
   <rect x="426" y="62" width="174" height="40" rx="4" style="fill:var(--c2)"/>
   <text x="80" y="50" text-anchor="middle" class="b">Alta burguesia</text><text x="207" y="50" text-anchor="middle" class="b">Média burguesia</text>
   <text x="349" y="50" text-anchor="middle" class="b">Pequena burguesia</text><text x="513" y="50" text-anchor="middle" class="b">Classe trabalhadora</text>
-  <text x="80" y="122" text-anchor="middle" class="m">vive do capital</text><text x="207" y="122" text-anchor="middle" class="m">capital + gestão</text>
-  <text x="349" y="122" text-anchor="middle" class="m">capital pequeno + próprio trabalho</text><text x="513" y="122" text-anchor="middle" class="m">vive do próprio trabalho</text>
-  <path class="ln" d="M300 148 H560" marker-end="url(#es-a)"/>
-  <text x="430" y="170" text-anchor="middle" class="m">concorrência, dívida e concentração empurram para cá</text>
+  <text x="80" y="122" text-anchor="middle" class="m">vive do</text><text x="80" y="138" text-anchor="middle" class="m">capital</text>
+  <text x="207" y="122" text-anchor="middle" class="m">capital</text><text x="207" y="138" text-anchor="middle" class="m">+ gestão</text>
+  <text x="349" y="122" text-anchor="middle" class="m">capital pequeno</text><text x="349" y="138" text-anchor="middle" class="m">+ próprio trabalho</text>
+  <text x="513" y="122" text-anchor="middle" class="m">vive do próprio</text><text x="513" y="138" text-anchor="middle" class="m">trabalho</text>
+  <path class="ln" d="M300 164 H560" marker-end="url(#es-a)"/>
+  <text x="430" y="188" text-anchor="middle" class="m">concorrência, dívida e concentração empurram para cá</text>
 </svg>
 <figcaption>A pequena burguesia tem um pé em cada lado, mas a pressão do capital grande a empurra para o lado do trabalho.</figcaption>
 </figure>
@@ -363,9 +412,42 @@
 
 <h3 id="crise-fatos">Três fatos reais</h3>
 <div class="callout"><b class="t" style="color:var(--brand-ink)">Década de 1930 · café queimado</b><p>Na Grande Depressão, a queda da demanda mundial encalhou a produção. O Brasil comprou e queimou milhões de sacas de café para sustentar o preço, enquanto a fome e o desemprego se espalhavam. A mercadoria existia, a necessidade também, e as duas não se encontravam.</p></div>
-<div class="callout"><b class="t" style="color:var(--brand-ink)">2008 · a casa como ativo financeiro</b><p>A crise começou no crédito imobiliário dos EUA. O banco Lehman Brothers faliu em 15 de setembro de 2008, e o governo autorizou até US$ 700 bilhões para socorrer instituições financeiras. Estimativas indicam cerca de 4 milhões de execuções hipotecárias no período. Casas feitas para morar viraram papéis financeiros: milhões de famílias saíram delas, e o valor de troca (o ativo) mandou no valor de uso (a moradia).</p></div>
+<div class="callout"><b class="t" style="color:var(--brand-ink)">2008 · a casa como ativo financeiro</b><p>A crise começou no crédito imobiliário dos EUA. O banco Lehman Brothers faliu em 15 de setembro de 2008, o governo americano autorizou até US$ 700 bilhões para socorrer instituições financeiras, e estimativas indicam cerca de 4 milhões de execuções hipotecárias no período. Como uma coisa levou à outra está explicado passo a passo mais abaixo.</p></div>
 <div class="callout"><b class="t" style="color:var(--brand-ink)">Abril de 2020 · petróleo com preço negativo</b><p>Em 20 de abril de 2020, o contrato futuro do petróleo WTI fechou em US$ −37,63 por barril: com a pandemia, a demanda despencou e os tanques de armazenagem nos EUA estavam quase cheios. Para o detentor do contrato, entregar o petróleo custava mais do que ele valia. O preço negativo foi do contrato futuro, e o Brent seguiu positivo, mas o episódio mostra um bem de enorme valor de uso sem comprador.</p></div>
 <p>Nos três casos há sobra de mercadoria, perda de valor de troca e necessidades sem atendimento. É a tensão da seção 1, agora em escala social.</p>
+
+<h3 id="crise-2008">Zoom: a crise de 2008, passo a passo</h3>
+<p>Fica uma pergunta: o que um banco que quebra tem a ver com uma família que perde a casa? São as duas pontas da mesma cadeia.</p>
+
+<figure class="diagram-fig">
+<svg viewBox="0 0 620 330" role="img" aria-label="Cadeia da crise de 2008: crédito farto, securitização, estouro da bolha, calotes e execuções, pânico bancário com a quebra do Lehman, socorro aos bancos e recessão, que gera mais calotes.">
+  <defs><marker id="c8-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk"/></marker></defs>
+  <rect class="bx" x="10" y="36" width="186" height="90" rx="8"/><text x="24" y="58" class="b">1. Crédito farto</text><text x="24" y="78" class="m">bancos emprestam para</text><text x="24" y="94" class="m">comprar casa, até a quem</text><text x="24" y="110" class="m">tem pouca renda</text>
+  <rect class="bx" x="217" y="36" width="186" height="90" rx="8"/><text x="231" y="58" class="b">2. Securitização</text><text x="231" y="78" class="m">hipotecas viram títulos</text><text x="231" y="94" class="m">vendidos a bancos e</text><text x="231" y="110" class="m">fundos no mundo todo</text>
+  <rect class="bx" x="424" y="36" width="186" height="90" rx="8"/><text x="438" y="58" class="b">3. A bolha estoura</text><text x="438" y="78" class="m">o preço dos imóveis</text><text x="438" y="94" class="m">para de subir e depois</text><text x="438" y="110" class="m">cai</text>
+  <rect class="bx-cool" x="424" y="170" width="186" height="90" rx="8"/><text x="438" y="192" class="b cool">4. Calote e execução</text><text x="438" y="212" class="m">muitos não conseguem</text><text x="438" y="228" class="m">pagar nem refinanciar; o</text><text x="438" y="244" class="m">banco toma a casa</text>
+  <rect class="bx-hot" x="217" y="170" width="186" height="90" rx="8"/><text x="231" y="192" class="b hot">5. Pânico bancário</text><text x="231" y="212" class="m">títulos perdem valor,</text><text x="231" y="228" class="m">bancos quebram (Lehman)</text><text x="231" y="244" class="m">e o crédito trava</text>
+  <rect class="bx" x="10" y="170" width="186" height="90" rx="8"/><text x="24" y="192" class="b">6. Socorro e recessão</text><text x="24" y="212" class="m">o governo salva os</text><text x="24" y="228" class="m">bancos; o desemprego</text><text x="24" y="244" class="m">gera mais calotes</text>
+  <path class="ln" d="M198 81 H215" marker-end="url(#c8-a)"/><path class="ln" d="M405 81 H422" marker-end="url(#c8-a)"/>
+  <path class="ln" d="M517 128 V168" marker-end="url(#c8-a)"/>
+  <path class="ln" d="M422 215 H405" marker-end="url(#c8-a)"/><path class="ln" d="M215 215 H198" marker-end="url(#c8-a)"/>
+  <path class="ln" d="M103 262 V292 H517 V262" marker-end="url(#c8-a)"/>
+  <text x="310" y="312" text-anchor="middle" class="m">a recessão gera desemprego, que gera mais calotes e execuções</text>
+  <text x="310" y="22" text-anchor="middle" class="ttl">Do crédito imobiliário à quebra do Lehman, e de volta às casas</text>
+</svg>
+<figcaption>A família que perde a casa (passo 4) e o banco que quebra (passo 5) são pontas da mesma cadeia. Esquema simplificado.</figcaption>
+</figure>
+
+<ol>
+  <li><b>Crédito farto.</b> Nos anos 2000, bancos americanos emprestaram dinheiro para comprar casas, inclusive a pessoas com pouca renda ou histórico ruim (o chamado crédito <i>subprime</i>), muitas vezes com juros baixos no início e mais altos depois. A garantia era a própria casa: quem não paga perde o imóvel para o banco. Esse crédito fez os preços dos imóveis subirem.</li>
+  <li><b>Securitização.</b> Os bancos não ficavam com esses empréstimos. Empacotavam milhares de hipotecas em títulos financeiros e os vendiam a outros bancos, fundos e investidores no mundo todo. Quem comprava o título recebia as prestações das famílias. O risco se espalhou e ficou escondido.</li>
+  <li><b>A bolha estoura.</b> A partir de 2006 e 2007, os preços dos imóveis pararam de subir e depois caíram. Quem devia mais do que a casa valia não conseguia vender nem refinanciar.</li>
+  <li><b>Calote e execução.</b> Muita gente parou de pagar. Os bancos executaram as hipotecas e tomaram as casas, que então foram a leilão por preços baixos e empurraram os preços ainda mais para baixo.</li>
+  <li><b>Pânico bancário.</b> Os títulos lastreados nessas prestações perderam valor. Os bancos tinham se endividado muito além do capital próprio para comprá-los, então uma queda pequena nos ativos bastava para apagar o capital. Como ninguém sabia quem guardava os títulos ruins, os bancos pararam de emprestar uns aos outros. Em 15 de setembro de 2008, o Lehman Brothers, um dos maiores bancos de investimento dos EUA, pediu falência.</li>
+  <li><b>Socorro e recessão.</b> O governo e o Banco Central dos EUA socorreram instituições financeiras (o programa TARP autorizou até US$ 700 bilhões, e a seguradora AIG recebeu US$ 85 bilhões do Fed). Com o crédito travado, a economia entrou em recessão. O desemprego fez mais gente deixar de pagar, e mais casas foram executadas.</li>
+</ol>
+<div class="callout key"><b class="t">A relação entre as duas pontas</b><p>As prestações das casas eram o lastro dos títulos. Quando as famílias deixaram de pagar, o valor dos títulos caiu e os bancos que os tinham quebraram. O socorro de maior escala foi para as instituições financeiras, e os programas de ajuda aos mutuários foram bem menores. A casa deixou de ser só moradia (valor de uso) e virou a base de uma cadeia de títulos (valor de troca multiplicado). Quando a cadeia quebrou, o valor de uso foi perdido: milhões de famílias saíram de suas casas.</p></div>
+<p class="note">Esquema simplificado. Economistas discutem o peso de cada causa (crédito, regulação frouxa, desequilíbrios globais), mas esses seis passos são consensuais em linhas gerais.</p>
 
 <h2 id="superacao"><span class="n">11 </span>A superação</h2>
 <p>Marx trata o capitalismo como uma etapa histórica, não como estado natural. Cada <b>modo de produção</b> dura até que suas <span class="term">forças produtivas</span> (técnica, conhecimento, trabalho cooperativo) entrem em choque com suas <span class="term">relações de produção</span> (propriedade, classes). Então abre-se um período de transformação.</p>
@@ -388,9 +470,36 @@
 <tr><td>Excedente</td><td>Apropriado pelo capital como lucro</td><td>Decidido coletivamente</td></tr>
 </tbody></table></div>
 
+<div class="callout key"><b class="t">Um lema atual</b><p class="slogan">Trabalhar menos, trabalhar todos, produzir o necessário, redistribuir tudo.</p><p style="margin:0;font-size:14.5px">Essa frase é usada hoje por movimentos sociais para resumir a proposta. Não é uma citação de Marx, mas cada parte dela corresponde a uma ideia já vista neste guia.</p></div>
+<div class="lema">
+  <div><b>Trabalhar menos</b>Com a produtividade, o tempo de trabalho necessário cai e a jornada pode encolher, em vez de virar excedente para o capital. <a href="#mais-valia">Seção 6</a></div>
+  <div><b>Trabalhar todos</b>O trabalho necessário é repartido entre todos. Sem exército de reserva, o desemprego deixa de ser uma peça do sistema. <a href="#acumulacao">Seção 7</a></div>
+  <div><b>Produzir o necessário</b>O valor de uso volta ao centro: produz-se para atender necessidades, sem encalhe nem desperdício para sustentar preço. <a href="#valor-de-uso-e-troca">Seção 1</a></div>
+  <div><b>Redistribuir tudo</b>O excedente e a riqueza deixam de ser apropriados por poucos e passam a ser decididos coletivamente. <a href="#mais-valia">Seção 6</a> e <a href="#oligopolios">8</a></div>
+</div>
+
+<h3 id="transicao">A transição: do capitalismo ao comunismo</h3>
+<p>Marx não propõe passar do capitalismo ao comunismo de uma vez. Na <i>Crítica do Programa de Gotha</i> (1875), ele descreve um período de transformação revolucionária entre as duas sociedades, com um período político correspondente. Depois dele, Marx distingue duas fases da sociedade sem classes: a inferior, que é o socialismo, e a superior, que é o comunismo.</p>
+<ol class="steps" aria-label="Etapas da transição">
+  <li class="now">Capitalismo</li><li>Conquista do poder político pelos trabalhadores</li><li class="future">Transição política</li><li class="future">Fase inferior: socialismo</li><li class="future">Fase superior: comunismo</li>
+</ol>
+<div class="tbl"><table>
+<thead><tr><th>Período</th><th>Poder político</th><th>Produção</th><th>Distribuição</th><th>Classes e Estado</th></tr></thead>
+<tbody>
+<tr><td>Transição</td><td>Os trabalhadores assumem o poder e desmontam o aparato do Estado burguês</td><td>Começa a socialização dos meios de produção, com resistência dos antigos proprietários</td><td>Ainda herdada do capitalismo, em reorganização</td><td>As classes ainda existem. O Estado serve para consolidar a mudança</td></tr>
+<tr><td>Fase inferior (socialismo)</td><td>Estado dos trabalhadores, que administra a economia em comum</td><td>Meios de produção sociais, produção planejada</td><td>Cada um recebe segundo o seu trabalho, depois dos descontos coletivos</td><td>Acaba a propriedade privada dos meios de produção. Restam desigualdades herdadas do capitalismo</td></tr>
+<tr><td>Fase superior (comunismo)</td><td>Sem Estado como instrumento de uma classe</td><td>Abundância. O trabalho deixa de ser só meio de vida e vira necessidade vital</td><td class="cool">De cada um segundo suas capacidades, a cada um segundo suas necessidades</td><td>Sem classes. O Estado "se extingue", como diz Engels</td></tr>
+</tbody></table></div>
+<p>Na fase inferior, antes da distribuição individual, Marx prevê descontos coletivos: a reposição dos meios de produção gastos, a ampliação da produção, um fundo de reserva contra imprevistos, os custos de administração, o que a sociedade destina a escolas e saúde, e a manutenção de quem não pode trabalhar. O que sobra é distribuído conforme o trabalho de cada um, por exemplo com vales de trabalho. Marx reconhece que esse critério ainda carrega uma limitação do "direito burguês": trata como iguais pessoas desiguais (quem tem mais dependentes, por exemplo). Só na fase superior, com a abundância e o fim da divisão rígida entre trabalho manual e intelectual, essa limitação seria superada.</p>
+
+<h3 id="ditadura-do-proletariado">O que é a "ditadura do proletariado"</h3>
+<p>A expressão aparece em Marx para nomear o Estado do período de transição. No vocabulário do século XIX, "ditadura" significa o <b>domínio político de uma classe</b>, e não necessariamente o governo de uma pessoa ou o fim das eleições. Para Marx, todo Estado serve a uma classe. O Estado capitalista, mesmo com eleições, é uma "ditadura da burguesia", porque suas leis e instituições garantem a propriedade privada e o poder de quem a detém.</p>
+<p>Na "ditadura do proletariado", quem governa é a classe trabalhadora, que é a maioria. Suas tarefas nesse período são quebrar a resistência dos antigos proprietários, socializar os meios de produção e reorganizar a economia, até que as classes desapareçam e o Estado perca a razão de existir. Por isso Engels afirma que o Estado não é abolido de uma vez, mas se extingue aos poucos.</p>
+<p>Como exemplo, Marx e Engels apontam a <b>Comuna de Paris</b> (1871): cargos públicos preenchidos por eleição, com mandatos revogáveis a qualquer momento; funcionários pagos com salário de trabalhador; o exército permanente substituído pelo povo armado; e o poder de fazer as leis e de executá-las reunido no mesmo órgão. Em 1891, Engels indicou a Comuna como a forma concreta que a ditadura do proletariado poderia ter.</p>
+<p class="note">Os regimes que depois usaram a expressão deram a ela formas institucionais diferentes. Esse debate histórico está fora do escopo deste guia, que descreve o conceito como aparece em Marx e Engels.</p>
+
 <ul>
   <li><b>Não é automática.</b> A crise abre uma possibilidade, mas a mudança depende da organização e da consciência política da classe trabalhadora, que precisa passar de classe "em si" (existe objetivamente) a classe "para si" (age como classe).</li>
-  <li><b>Há uma transição.</b> Na <i>Crítica do Programa de Gotha</i>, Marx descreve uma fase inferior (o socialismo), em que ainda se distribui "a cada um segundo o seu trabalho", e uma fase superior (o comunismo), regida por "de cada um segundo suas capacidades, a cada um segundo suas necessidades". Para a passagem, ele fala em "ditadura do proletariado", que significa o poder político da classe trabalhadora, em contraste com o poder atual da burguesia.</li>
   <li><b>O sentido geral</b> é recolocar o <span class="uso">valor de uso</span> no centro: produzir para que as pessoas vivam bem, e não para que o capital cresça.</li>
 </ul>
 <div class="callout key"><b class="t">Fechando o fio</b><p>Começamos com um pão que tem valor de uso e valor de troca. Vimos como o capitalismo faz do segundo o seu objetivo, como isso gera exploração, concentração e crise, e como a alternativa proposta por Marx inverte essa ordem.</p></div>
