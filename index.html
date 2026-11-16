@@ -342,7 +342,7 @@ p.slogan{font:600 clamp(20px,3.4vw,26px)/1.3 var(--f-display);margin:0 0 6px;tex
 <p>Se um casaco e 20 varas de linho se trocam, eles têm algo em comum que não é a utilidade (casaco e linho servem para coisas diferentes). Para Marx, o que têm em comum é serem <b>produtos de trabalho humano</b>. Esse trabalho tem dois lados:</p>
 <div class="dgrid">
   <div class="dcard"><b class="dt"><i>C</i>Trabalho concreto</b><p>O ato específico, com suas técnicas e ferramentas. Cria o <b>valor de uso</b>. Exemplos: costurar uma camiseta, que passa a vestir; assar pão, que passa a alimentar; programar um aplicativo, que passa a funcionar.</p></div>
-  <div class="dcard"><b class="dt"><i>A</i>Trabalho abstrato</b><p>O mesmo trabalho visto só como gasto de tempo humano, sem olhar o que se faz. Cria o <b>valor</b>. Exemplo: 2 horas de costura, 2 horas de padaria e 2 horas de programação são trabalhos concretos diferentes, mas contam como as mesmas 2 horas de trabalho humano. É isso que permite comparar e trocar coisas tão diferentes.</p></div>
+  <div class="dcard"><b class="dt"><i>A</i>Trabalho abstrato</b><p>O mesmo trabalho visto só como gasto de tempo de trabalho humano, sem olhar o que se faz. Cria o <b>valor</b>. A unidade de medida é o trabalho simples médio. Exemplo: 2 horas de costura e 2 horas de padaria contam como 2 horas de trabalho simples, e 2 horas de programação, que é trabalho complexo, contam como mais horas de trabalho simples. É isso que permite comparar coisas tão diferentes.</p></div>
 </div>
 <p>Veja uma camiseta passo a passo. A matéria-prima já tem valor, e o trabalho de costura acrescenta valor novo (valores ilustrativos, em reais):</p>
 <figure class="diagram-fig">
@@ -368,29 +368,39 @@ p.slogan{font:600 clamp(20px,3.4vw,26px)/1.3 var(--f-display);margin:0 0 6px;tex
 </svg>
 <figcaption>Uma camiseta de R$ 60 tem dois valores ao mesmo tempo: o de uso (vestir) e o de troca (R$ 60). Os valores são ilustrativos.</figcaption>
 </figure>
-<p>O trabalho abstrato é mais difícil de enxergar, porque ele só aparece na comparação. Veja o mesmo tempo de trabalho em três atividades diferentes:</p>
+<p>O trabalho abstrato só aparece na comparação. Para comparar trabalhos diferentes, Marx usa como unidade o <b>trabalho simples médio</b>: o gasto de força de trabalho que existe, em média, no organismo de qualquer pessoa comum, sem formação especial. O <b>trabalho complexo</b> (qualificado) conta como trabalho simples <i>multiplicado</i>: uma quantidade menor de trabalho complexo equivale a uma quantidade maior de trabalho simples. Veja três atividades de 2 horas, tratando, só para ilustrar, costurar e assar pães como trabalho simples e programar como trabalho complexo:</p>
 <figure class="diagram-fig">
-<svg viewBox="0 0 720 236" role="img" aria-label="Costurar, assar pão e programar são trabalhos concretos diferentes; cada um com 2 horas de trabalho médio conta como o mesmo trabalho abstrato e cria o mesmo valor novo.">
+<svg viewBox="0 0 720 236" role="img" aria-label="Costurar e assar pães, em 2 horas, contam como 2 horas de trabalho simples e criam R$ 35 de valor novo. Programar, em 2 horas, conta como 6 horas de trabalho simples e cria R$ 105.">
   <defs><marker id="ab-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk-hot"/></marker></defs>
-  <text x="20" y="22" class="m">trabalho concreto: cada um é diferente</text>
-  <text x="700" y="22" text-anchor="end" class="m">trabalho abstrato: todos contam igual</text>
-  <rect class="bx" x="20" y="38" width="300" height="54" rx="8"/>
+  <text x="20" y="22" class="m">trabalho concreto (cada um é diferente)</text>
+  <text x="411" y="22" text-anchor="middle" class="m">trabalho abstrato (em horas simples)</text>
+  <text x="700" y="22" text-anchor="end" class="m">valor novo criado</text>
+  <rect class="bx" x="20" y="38" width="260" height="54" rx="8"/>
   <text x="36" y="62" class="b">Costurar uma camiseta</text><text x="36" y="80" class="m">2 horas · valor de uso: vestir</text>
-  <rect class="bx" x="20" y="100" width="300" height="54" rx="8"/>
+  <rect class="bx" x="20" y="100" width="260" height="54" rx="8"/>
   <text x="36" y="124" class="b">Assar pães</text><text x="36" y="142" class="m">2 horas · valor de uso: alimentar</text>
-  <rect class="bx" x="20" y="162" width="300" height="54" rx="8"/>
-  <text x="36" y="186" class="b">Programar um aplicativo</text><text x="36" y="204" class="m">2 horas · valor de uso: executar uma tarefa</text>
-  <path class="ln-hot" d="M322 65 L416 112" marker-end="url(#ab-a)"/>
-  <path class="ln-hot" d="M322 127 L416 127" marker-end="url(#ab-a)"/>
-  <path class="ln-hot" d="M322 189 L416 142" marker-end="url(#ab-a)"/>
-  <rect class="bx-hot" x="420" y="72" width="280" height="110" rx="8"/>
-  <text x="560" y="104" text-anchor="middle" class="b">2 horas de trabalho humano</text>
-  <text x="560" y="124" text-anchor="middle" class="m">(de complexidade média)</text>
-  <text x="560" y="156" text-anchor="middle" class="hot b">= R$ 35 de valor novo</text>
+  <rect class="bx" x="20" y="162" width="260" height="54" rx="8"/>
+  <text x="36" y="186" class="b">Programar um aplicativo</text><text x="36" y="204" class="m">2 horas · formação longa</text>
+  <path class="ln-hot" d="M282 65 H312" marker-end="url(#ab-a)"/>
+  <path class="ln-hot" d="M282 127 H312" marker-end="url(#ab-a)"/>
+  <path class="ln-hot" d="M282 189 H312" marker-end="url(#ab-a)"/>
+  <rect class="bx-hot" x="316" y="38" width="190" height="54" rx="8"/>
+  <text x="411" y="62" text-anchor="middle" class="b">conta como 2 h</text><text x="411" y="80" text-anchor="middle" class="m">de trabalho simples</text>
+  <rect class="bx-hot" x="316" y="100" width="190" height="54" rx="8"/>
+  <text x="411" y="124" text-anchor="middle" class="b">conta como 2 h</text><text x="411" y="142" text-anchor="middle" class="m">de trabalho simples</text>
+  <rect class="bx-hot" x="316" y="162" width="190" height="54" rx="8"/>
+  <text x="411" y="186" text-anchor="middle" class="b">conta como 6 h</text><text x="411" y="204" text-anchor="middle" class="m">de trabalho simples (multiplicado)</text>
+  <path class="ln-hot" d="M508 65 H538" marker-end="url(#ab-a)"/>
+  <path class="ln-hot" d="M508 127 H538" marker-end="url(#ab-a)"/>
+  <path class="ln-hot" d="M508 189 H538" marker-end="url(#ab-a)"/>
+  <rect class="bx" x="542" y="38" width="158" height="54" rx="8"/><text x="621" y="70" text-anchor="middle" class="hot b">R$ 35</text>
+  <rect class="bx" x="542" y="100" width="158" height="54" rx="8"/><text x="621" y="132" text-anchor="middle" class="hot b">R$ 35</text>
+  <rect class="bx" x="542" y="162" width="158" height="54" rx="8"/><text x="621" y="194" text-anchor="middle" class="hot b">R$ 105</text>
 </svg>
-<figcaption>Os três trabalhos criam coisas diferentes (valores de uso), mas, para a troca, contam como o mesmo gasto de 2 horas de trabalho humano. Os valores são ilustrativos.</figcaption>
+<figcaption>As três atividades criam coisas diferentes (valores de uso), mas para a troca só importa quantas horas de trabalho simples cada uma representa. A multiplicação por 3 e os valores em reais são ilustrativos.</figcaption>
 </figure>
-<p>O <span class="term">valor</span> de uma mercadoria é medido pelo <b>tempo de trabalho socialmente necessário</b>: o tempo exigido nas condições médias de produtividade da sociedade. Se um artesão leva 10 horas para costurar uma camiseta que uma fábrica faz em 2, o mercado reconhece só as 2 horas. As 8 horas extras não aumentam o valor; são perda para o artesão.</p>
+<p>Quem define quantas horas de trabalho simples vale uma hora de trabalho complexo? Marx não dá uma fórmula. Diz que essas proporções "são fixadas por meio de um processo social nas costas dos produtores e parecem-lhes, portanto, dadas pela tradição" (<i>O Capital</i>, Livro I, cap. 1, seção 2). No capítulo 7, explica que o trabalho qualificado é o gasto de uma força de trabalho que custou mais tempo e trabalho para ser produzida; por isso ela tem valor mais alto e cria, no mesmo tempo, valores proporcionalmente maiores. Para ele, reduzir o trabalho qualificado ao trabalho social médio é inevitável em todo processo de criação de valor, e o exemplo que dá é um dia de trabalho qualificado para seis de não qualificado. Numa nota, acrescenta que a distinção entre qualificado e não qualificado se apoia em parte em ilusão e em parte na situação desamparada de certos grupos de trabalhadores. Para simplificar, Marx passa a tratar todo trabalho como simples, e este guia faz o mesmo nas próximas seções.</p>
+<p>O <span class="term">valor</span> de uma mercadoria é medido pelo <b>tempo de trabalho socialmente necessário</b>: o tempo exigido nas condições normais de produção, com o grau médio de destreza e de intensidade do trabalho da época. Se um artesão leva 10 horas para costurar uma camiseta que uma fábrica faz em 2, o mercado reconhece só as 2 horas. As 8 horas extras não aumentam o valor; são perda para o artesão.</p>
 <p>O <b>preço</b> é a expressão do valor em dinheiro. Ele oscila com a oferta e a demanda, mas em torno do valor.</p>
 
 <h2 id="dinheiro-e-fetichismo"><span class="n">3 </span>Dinheiro e fetichismo da mercadoria</h2>
@@ -974,6 +984,7 @@ p.slogan{font:600 clamp(20px,3.4vw,26px)/1.3 var(--f-display);margin:0 0 6px;tex
 
 <h3 id="fontes">Fontes dos fatos citados</h3>
 <ul class="sources">
+  <li>Trabalho simples e trabalho complexo (Marx, <i>O Capital</i>, Livro I): <a href="https://www.marxists.org/portugues/marx/1867/capital/livro1/cap01/02.htm" target="_blank" rel="noopener">cap. 1, seção 2</a> e <a href="https://www.marxists.org/archive/marx/works/1867-c1/ch07.htm" target="_blank" rel="noopener">cap. 7 (em inglês)</a>. As citações em português vêm da tradução portuguesa publicada no Marxists Internet Archive, e as passagens do capítulo 7 vêm da versão em inglês.</li>
   <li>Imóveis vagos e déficit de moradia (Censo 2022): <a href="https://apublica.org/2023/06/censo-2022-brasil-tem-11-milhoes-de-casas-e-apartamentos-vagos/" target="_blank" rel="noopener">Agência Pública</a> e <a href="https://brasildefato.com.br/2023/07/17/o-brasil-tem-11-milhoes-de-domicilios-vazios-e-6-milhoes-de-familias-sem-ter-onde-morar/" target="_blank" rel="noopener">Brasil de Fato</a>. Os números de São Paulo (588 mil imóveis vagos; 31,9 mil pessoas em situação de rua em 2021) vêm de reportagens e não foram conferidos nas tabelas do IBGE e da prefeitura. Os dois levantamentos são de anos e metodologias diferentes.</li>
   <li>Desperdício de alimentos: <a href="https://news.un.org/en/node/1148036" target="_blank" rel="noopener">ONU News</a>, sobre o Food Waste Index 2024 do PNUMA.</li>
   <li>Roupas no Atacama: <a href="https://www.rte.ie/news/2021/1108/1258514-climate-change-fast-fashion-chile" target="_blank" rel="noopener">RTÉ</a> e <a href="https://www.nationalgeographic.com/environment/article/chile-fashion-pollution" target="_blank" rel="noopener">National Geographic</a>. As estimativas variam entre as fontes.</li>
