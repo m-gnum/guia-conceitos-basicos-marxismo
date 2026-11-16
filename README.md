@@ -21,6 +21,7 @@ python3 build.py
 
 ## Observações
 
+- A página publicada (Pages) usa sempre o layout de desktop, em celular e tablet também: o viewport é fixo em 1280 px e o CSS não tem regras de largura (@media).
 - Os números dos simuladores são ilustrativos.
 - Os fatos citados (moradia, alimento, roupa, Uber e crises) têm fonte ao final da página. Os números de São Paulo vêm de reportagens e não foram conferidos nas tabelas oficiais.
 - A página carrega as fontes Inter e Newsreader do Google Fonts.

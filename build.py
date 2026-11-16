@@ -1,5 +1,7 @@
 """Gera index.html a partir de body.html + style.css + script.js + logos/*.png.
 
+A página publicada no Pages é sempre em layout desktop (viewport fixo em 1280 px e sem regras @media de largura).
+
 Uso:
     python3 build.py
 """
@@ -138,20 +140,42 @@ def page_body(content):
   </main>
 </div>
 <script>
-{read("script.js")}
+{read("script.js").replace("(max-width:900px)", "(max-width:0px)")}
 </script>"""
+
+
+def desktop_only(css):
+    """Remove as regras @media (max-width: ...) para que o layout não mude em telas estreitas."""
+    out, i = [], 0
+    while True:
+        k = css.find("@media (max-width", i)
+        if k < 0:
+            out.append(css[i:])
+            break
+        out.append(css[i:k])
+        depth, m = 0, css.index("{", k)
+        while True:
+            if css[m] == "{":
+                depth += 1
+            elif css[m] == "}":
+                depth -= 1
+                if depth == 0:
+                    break
+            m += 1
+        i = m + 1
+    return "".join(out)
 
 
 def main():
     content = embed_logos(read("body.html").strip().replace("{{brandmap}}", brand_map()))
-    css = read("style.css")
+    css = desktop_only(read("style.css"))
     body = page_body(content)
 
     local = f"""<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=1280">
 <title>{TITLE}</title>
 {FONTS}
 <style>
