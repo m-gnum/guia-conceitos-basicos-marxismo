@@ -4,6 +4,7 @@ Uso:
     python3 build.py
 """
 import base64
+import math
 import os
 import re
 import sys
@@ -39,6 +40,57 @@ def embed_logos(content):
     return re.sub(r"\{\{logo:([a-z0-9]+)\}\}", one, content)
 
 
+# Empresas (guarda-chuva) e as marcas ao redor: (slug do logo ou None, nome)
+MARCAS = [
+    ("nestle", "Nestlé", [("nescafe", "Nescafé"), ("kitkat", "KitKat"), ("purina", "Purina"), (None, "Ninho"), (None, "Nescau")]),
+    ("pg", "Procter & Gamble", [("gillette", "Gillette"), ("oralb", "Oral-B"), ("pantene", "Pantene"), (None, "Pampers"), (None, "Ariel")]),
+    ("unilever", "Unilever", [("dove", "Dove"), ("knorr", "Knorr"), (None, "Hellmann's"), (None, "Omo"), (None, "Rexona")]),
+    ("jnj", "Johnson & Johnson", [("bandaid", "Band-Aid"), ("listerine", "Listerine"), (None, "Neutrogena")]),
+    ("cocacola", "Coca-Cola", [("sprite", "Sprite"), ("powerade", "Powerade"), (None, "Fanta"), (None, "Del Valle")]),
+    ("pepsico", "PepsiCo", [("lays", "Lay's"), ("gatorade", "Gatorade"), (None, "Doritos"), (None, "Quaker")]),
+    ("mars", "Mars", [("mms", "M&M's"), (None, "Snickers"), (None, "Twix"), (None, "Pedigree")]),
+    ("kelloggs", "Kellogg's", [(None, "Corn Flakes"), (None, "Pringles"), (None, "Pop-Tarts")]),
+    ("generalmills", "General Mills", [("cheerios", "Cheerios"), (None, "Nature Valley"), (None, "Betty Crocker")]),
+    ("kraftheinz", "Kraft Heinz", [(None, "Heinz"), (None, "Oscar Mayer"), (None, "Philadelphia"), (None, "Kool-Aid")]),
+]
+
+
+def data_uri(slug):
+    with open(os.path.join(HERE, "logos", slug + ".png"), "rb") as f:
+        return "data:image/png;base64," + base64.b64encode(f.read()).decode()
+
+
+def esc(t):
+    return t.replace("&", "&amp;").replace("<", "&lt;")
+
+
+def brand_map():
+    """Um cartão por empresa: a marca guarda-chuva grande no centro, as marcas ao redor, ligadas por linhas."""
+    cx, cy, rx, ry, sw, sh = 180, 145, 130, 98, 90, 36
+    cards = []
+    for slug, name, sats in MARCAS:
+        n = len(sats)
+        pts = []
+        for i in range(n):
+            a = math.radians(-90 + 360 * i / n)
+            pts.append((cx + rx * math.cos(a), cy + ry * math.sin(a)))
+        lines = "".join(f'<line class="bl" x1="{cx}" y1="{cy}" x2="{x:.1f}" y2="{y:.1f}"/>' for x, y in pts)
+        sat_svg = ""
+        for (sslug, sname), (x, y) in zip(sats, pts):
+            if sslug:
+                sat_svg += (f'<rect class="tile" x="{x - sw / 2:.1f}" y="{y - sh / 2:.1f}" width="{sw}" height="{sh}" rx="8"/>'
+                            f'<image href="{data_uri(sslug)}" x="{x - sw / 2 + 8:.1f}" y="{y - sh / 2 + 4:.1f}" width="{sw - 16}" height="{sh - 8}" preserveAspectRatio="xMidYMid meet"/>')
+            else:
+                sat_svg += (f'<rect class="pill" x="{x - sw / 2:.1f}" y="{y - sh / 2:.1f}" width="{sw}" height="{sh}" rx="18"/>'
+                            f'<text class="pt" x="{x:.1f}" y="{y + 4:.1f}" text-anchor="middle">{esc(sname)}</text>')
+        root = (f'<rect class="root" x="{cx - 70}" y="{cy - 36}" width="140" height="72" rx="10"/>'
+                f'<image href="{data_uri(slug)}" x="{cx - 60}" y="{cy - 30}" width="120" height="44" preserveAspectRatio="xMidYMid meet"/>'
+                f'<text class="rl" x="{cx}" y="{cy + 29}" text-anchor="middle">MARCA GUARDA-CHUVA</text>')
+        label = f'{name} controla ' + ", ".join(s[1] for s in sats)
+        cards.append(f'<figure class="bm"><svg viewBox="0 0 360 290" role="img" aria-label="{esc(label)}">{lines}{sat_svg}{root}</svg></figure>')
+    return '<div class="bmap">' + "".join(cards) + "</div>"
+
+
 def page_body(content):
     hero = f"""<section class="hero">
       <span class="eyebrow">Guia didático · atualizado em {DATE}</span>
@@ -69,7 +121,7 @@ def page_body(content):
 
 
 def main():
-    content = embed_logos(read("body.html").strip())
+    content = embed_logos(read("body.html").strip().replace("{{brandmap}}", brand_map()))
     css = read("style.css")
     body = page_body(content)
 

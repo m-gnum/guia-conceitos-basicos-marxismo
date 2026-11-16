@@ -29,6 +29,7 @@
   var EX={
     pao:{u:'Alimenta. O pão feito em casa existe só por isso: alguém tem fome.',t:'Na padaria, o pão só chega a quem paga. Se não vende até o fim do dia, a sobra pode ser descartada, mesmo havendo gente com fome.'},
     casa:{u:'Abriga, dá segurança e um lugar para viver.',t:'Um imóvel comprado para valorizar ou alugar pode ficar vazio à espera de comprador, enquanto há famílias sem moradia ou pagando aluguel que não cabe no orçamento.'},
+    bolsa:{u:'Uma bolsa artesanal e uma bolsa de grife cumprem, em geral, a mesma função: carregar objetos. Para esse uso, o nome da marca não acrescenta nada.',t:'A de grife pode custar muitas vezes mais do que a artesanal. O preço extra vem da marca, e não de a bolsa carregar mais coisas. A seção 3 mostra como esse preço é construído.'},
     agua:{u:'A água é indispensável à vida. O diamante serve para pouca coisa essencial.',t:'O diamante vale muito mais do que a água. O valor de troca não mede a utilidade. Para Marx, ele mede o trabalho socialmente necessário (seção 2).'}
   };
   var wu=$('w-uso');
