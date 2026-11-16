@@ -37,19 +37,6 @@
   [].forEach.call(wu.querySelectorAll('button'),function(b){b.addEventListener('click',function(){showEx(b.getAttribute('data-k'))})});
   showEx('pao');
 
-  /* 2. trabalho socialmente necessário */
-  var wh=$('wt-h');
-  function trab(){
-    var h=+wh.value, pct=Math.round(200/h);
-    $('wt-o').textContent=h+' h'; $('wt-a').textContent=h+' h';
-    $('wt-ba').style.width=(h/12*100)+'%';
-    $('wt-ba').textContent=h+' h';
-    $('wt-bb').textContent='2 h';
-    $('wt-v').textContent=h===2
-      ? 'O tempo do artesão coincide com a média social: cada hora de trabalho dele vale integralmente.'
-      : 'O artesão gastou '+h+' horas, mas o mercado só reconhece 2. Cada hora dele vale '+pct+'% de uma hora média. Se cobrasse pelas '+h+' horas, a camiseta custaria '+pt(h/2,h%2?1:0)+' vezes a da fábrica, e ninguém compraria.';
-  }
-  wh.addEventListener('input',trab); trab();
 
   /* 6. mais-valia */
   var wj=$('wm-j'), wn=$('wm-n'), HV=30;

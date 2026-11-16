@@ -276,6 +276,7 @@ p.slogan{font:600 clamp(20px,3.4vw,26px)/1.3 var(--f-display);margin:0 0 6px;tex
 .dcard li:last-child{margin-bottom:0}
 .dcard li b{display:block;font-size:13.5px}
 .dcard li span{display:block;font-size:12.5px;line-height:1.4;color:var(--muted)}
+.dcard p{margin:0;font-size:13.5px;line-height:1.45;color:var(--muted)}
 
 </style>
 </head>
@@ -338,27 +339,42 @@ p.slogan{font:600 clamp(20px,3.4vw,26px)/1.3 var(--f-display);margin:0 0 6px;tex
 <div class="callout"><b class="t">Roupa · fast fashion no Atacama</b><p>No deserto do Atacama, no Chile, estimativas divulgadas pela agência AFP em 2021 indicam que cerca de 59 mil toneladas de roupas usadas e encalhadas chegam por ano ao porto de Iquique, e que ao menos 39 mil toneladas acabam despejadas em lixões no deserto. Peças que ainda vestem, mas não acham comprador, viram resíduo: o valor de uso se perde porque o valor de troca não se realizou.</p></div>
 
 <h2 id="trabalho-e-valor"><span class="n">2 </span>Trabalho e valor: de onde vem o valor de troca</h2>
-<p>Se um casaco e 20 varas de linho se trocam, eles têm algo em comum que não é a utilidade (casaco e linho servem para coisas diferentes). Para Marx, o que têm em comum é serem <b>produtos de trabalho humano</b>.</p>
-<ul>
-  <li><b>Trabalho concreto:</b> o ato específico de costurar, cozinhar ou programar. Cria valor de uso.</li>
-  <li><b>Trabalho abstrato:</b> o trabalho humano em geral, medido em tempo. Cria valor.</li>
-</ul>
-<p>O <span class="term">valor</span> de uma mercadoria é medido pelo <b>tempo de trabalho socialmente necessário</b> para produzi-la, isto é, o tempo exigido nas condições médias de produtividade da sociedade. Não importa quanto tempo uma pessoa específica demorou.</p>
-<p>O <b>preço</b> é a expressão do valor em dinheiro. Ele oscila com a oferta e a demanda, mas em torno do valor.</p>
-
-<div class="widget" id="w-trab">
-  <header><b>Experimente</b><span>Uma fábrica faz uma camiseta em 2 horas. Quanto tempo o artesão leva?</span></header>
-  <div class="body">
-    <div class="ctl"><label for="wt-h">Tempo do artesão por camiseta <output id="wt-o">10 h</output></label><input id="wt-h" type="range" min="2" max="12" step="1" value="10"></div>
-    <div><div class="row-l"><span>Trabalho que o artesão gastou</span><span id="wt-a"></span></div><div class="bar"><div class="s-gray" id="wt-ba"></div></div></div>
-    <div><div class="row-l"><span>Trabalho que o mercado reconhece (média social: 2 h)</span><span>2 h</span></div><div class="bar"><div class="s-brand" id="wt-bb" style="width:16.7%"></div></div></div>
-    <p class="verdict" id="wt-v"></p>
-  </div>
+<p>Se um casaco e 20 varas de linho se trocam, eles têm algo em comum que não é a utilidade (casaco e linho servem para coisas diferentes). Para Marx, o que têm em comum é serem <b>produtos de trabalho humano</b>. Esse trabalho tem dois lados:</p>
+<div class="dgrid">
+  <div class="dcard"><b class="dt"><i>C</i>Trabalho concreto</b><p>O ato específico de costurar, cozinhar ou programar. Cria o <b>valor de uso</b>: a camiseta que protege do sol.</p></div>
+  <div class="dcard"><b class="dt"><i>A</i>Trabalho abstrato</b><p>O trabalho humano em geral, medido em tempo. Cria o <b>valor</b>, que aparece na troca e no preço.</p></div>
 </div>
+<p>Veja uma camiseta passo a passo. A matéria-prima já tem valor, e o trabalho de costura acrescenta valor novo (valores ilustrativos, em reais):</p>
+<figure class="diagram-fig">
+<svg viewBox="0 0 720 210" role="img" aria-label="Uma matéria-prima de valor X, somada ao trabalho de costura, que acrescenta valor Y, dá uma camiseta de valor X + Y.">
+  <defs><marker id="tr-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" class="mk"/></marker></defs>
+  <rect class="bx" x="20" y="50" width="200" height="104" rx="8"/>
+  <text x="120" y="84" text-anchor="middle" class="b">Matéria-prima</text>
+  <text x="120" y="106" text-anchor="middle" class="m">fio e tecido de algodão</text>
+  <text x="120" y="138" text-anchor="middle" class="hot b">valor X: R$ 25</text>
+  <line class="ln" x1="222" y1="102" x2="256" y2="102" marker-end="url(#tr-a)"/>
+  <text x="240" y="94" text-anchor="middle" class="b" style="font-size:22px">+</text>
+  <rect class="bx-hot" x="260" y="50" width="200" height="104" rx="8"/>
+  <text x="360" y="84" text-anchor="middle" class="b">Trabalho de costura</text>
+  <text x="360" y="106" text-anchor="middle" class="m">2 horas de trabalho humano</text>
+  <text x="360" y="138" text-anchor="middle" class="hot b">valor novo Y: R$ 35</text>
+  <line class="ln" x1="462" y1="102" x2="496" y2="102" marker-end="url(#tr-a)"/>
+  <text x="480" y="94" text-anchor="middle" class="b" style="font-size:22px">=</text>
+  <rect class="bx-hot" x="500" y="50" width="200" height="104" rx="8"/>
+  <text x="600" y="84" text-anchor="middle" class="b">Camiseta</text>
+  <text x="600" y="106" text-anchor="middle" class="m">serve para vestir (uso)</text>
+  <text x="600" y="138" text-anchor="middle" class="hot b">X + Y = R$ 60</text>
+  <text x="360" y="196" text-anchor="middle" class="m">O fio transfere o seu valor (X) à camiseta. Só o trabalho de costura cria valor novo (Y).</text>
+</svg>
+<figcaption>Uma camiseta de R$ 60 tem dois valores ao mesmo tempo: o de uso (vestir) e o de troca (R$ 60). Os valores são ilustrativos.</figcaption>
+</figure>
+<p>O <span class="term">valor</span> de uma mercadoria é medido pelo <b>tempo de trabalho socialmente necessário</b>: o tempo exigido nas condições médias de produtividade da sociedade. Se um artesão leva 10 horas para costurar uma camiseta que uma fábrica faz em 2, o mercado reconhece só as 2 horas. As 8 horas extras não aumentam o valor; são perda para o artesão.</p>
+<p>O <b>preço</b> é a expressão do valor em dinheiro. Ele oscila com a oferta e a demanda, mas em torno do valor.</p>
 
 <h2 id="dinheiro-e-fetichismo"><span class="n">3 </span>Dinheiro e fetichismo da mercadoria</h2>
 <p>Quando a troca se generaliza, uma mercadoria assume o papel de medida de todas as outras: o <b>dinheiro</b>, ou equivalente geral. Todo valor passa a ser expresso em preço.</p>
 <p>Isso tem um efeito que Marx chama de <span class="term">fetichismo da mercadoria</span>. No mercado, só vemos coisas com preços. A relação social entre as pessoas que produziram aquela coisa, em quais condições e com qual jornada, desaparece da vista. Parece que as coisas se relacionam entre si ("a camiseta vale 59,90"), quando na verdade são pessoas que se relacionam por meio das coisas.</p>
+<p>A camiseta da seção 2 mostra isso. Ela vale R$ 60 (R$ 25 do fio, que transfere o seu valor, e R$ 35 do trabalho de costura). No mercado, porém, ela aparece como <b>R$ 59,90</b>. O preço é só a forma em dinheiro desse valor, e é o único dado que o comprador vê: o fio, a costura e as pessoas que fizeram cada etapa somem por trás do número.</p>
 
 <figure class="diagram-fig">
 <svg viewBox="0 0 620 250" role="img" aria-label="O preço de uma camiseta é só um número; por trás dele há uma cadeia de trabalho de várias pessoas que o comprador não vê.">
@@ -990,19 +1006,6 @@ p.slogan{font:600 clamp(20px,3.4vw,26px)/1.3 var(--f-display);margin:0 0 6px;tex
   [].forEach.call(wu.querySelectorAll('button'),function(b){b.addEventListener('click',function(){showEx(b.getAttribute('data-k'))})});
   showEx('pao');
 
-  /* 2. trabalho socialmente necessário */
-  var wh=$('wt-h');
-  function trab(){
-    var h=+wh.value, pct=Math.round(200/h);
-    $('wt-o').textContent=h+' h'; $('wt-a').textContent=h+' h';
-    $('wt-ba').style.width=(h/12*100)+'%';
-    $('wt-ba').textContent=h+' h';
-    $('wt-bb').textContent='2 h';
-    $('wt-v').textContent=h===2
-      ? 'O tempo do artesão coincide com a média social: cada hora de trabalho dele vale integralmente.'
-      : 'O artesão gastou '+h+' horas, mas o mercado só reconhece 2. Cada hora dele vale '+pct+'% de uma hora média. Se cobrasse pelas '+h+' horas, a camiseta custaria '+pt(h/2,h%2?1:0)+' vezes a da fábrica, e ninguém compraria.';
-  }
-  wh.addEventListener('input',trab); trab();
 
   /* 6. mais-valia */
   var wj=$('wm-j'), wn=$('wm-n'), HV=30;
