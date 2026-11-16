@@ -66,7 +66,7 @@ def esc(t):
 
 def brand_map():
     """Um cartão por empresa: a marca guarda-chuva grande no centro, as marcas ao redor, ligadas por linhas."""
-    cx, cy, rx, ry, sw, sh = 180, 145, 130, 98, 90, 36
+    cx, cy, rx, ry, sw, sh = 180, 132, 132, 92, 84, 36
     cards = []
     for slug, name, sats in MARCAS:
         n = len(sats)
@@ -83,11 +83,11 @@ def brand_map():
             else:
                 sat_svg += (f'<rect class="pill" x="{x - sw / 2:.1f}" y="{y - sh / 2:.1f}" width="{sw}" height="{sh}" rx="18"/>'
                             f'<text class="pt" x="{x:.1f}" y="{y + 4:.1f}" text-anchor="middle">{esc(sname)}</text>')
-        root = (f'<rect class="root" x="{cx - 70}" y="{cy - 36}" width="140" height="72" rx="10"/>'
-                f'<image href="{data_uri(slug)}" x="{cx - 60}" y="{cy - 30}" width="120" height="44" preserveAspectRatio="xMidYMid meet"/>'
-                f'<text class="rl" x="{cx}" y="{cy + 29}" text-anchor="middle">MARCA GUARDA-CHUVA</text>')
+        root = (f'<rect class="root" x="{cx - 75}" y="{cy - 40}" width="150" height="80" rx="12"/>'
+                f'<image href="{data_uri(slug)}" x="{cx - 64}" y="{cy - 34}" width="128" height="50" preserveAspectRatio="xMidYMid meet"/>'
+                f'<text class="rl" x="{cx}" y="{cy + 31}" text-anchor="middle">MARCA GUARDA-CHUVA</text>')
         label = f'{name} controla ' + ", ".join(s[1] for s in sats)
-        cards.append(f'<figure class="bm"><svg viewBox="0 0 360 290" role="img" aria-label="{esc(label)}">{lines}{sat_svg}{root}</svg></figure>')
+        cards.append(f'<figure class="bm"><svg viewBox="0 0 360 256" role="img" aria-label="{esc(label)}">{lines}{sat_svg}{root}</svg></figure>')
     return '<div class="bmap">' + "".join(cards) + "</div>"
 
 
