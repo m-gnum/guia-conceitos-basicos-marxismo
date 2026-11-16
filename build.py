@@ -40,28 +40,29 @@ def embed_logos(content):
     return re.sub(r"\{\{logo:([a-z0-9]+)\}\}", one, content)
 
 
-# Empresas (guarda-chuva) e as marcas ao redor: (slug do logo ou None, nome)
+# Empresas (guarda-chuva): (slug do logo ou None, nome, ramo, total segundo a empresa, marcas, legenda).
+# Cada marca: (slug do logo ou None, nome[, "pend" = venda/fusão anunciada | "oth" = bloco de outras]).
 MARCAS = [
-    ("nestle", "Nestlé", [("nescafe", "Nescafé"), ("kitkat", "KitKat"), ("purina", "Purina"), (None, "Nespresso"), (None, "Nescau")],
-     "Em venda, ainda pendente: 50% do negócio de águas (com a Platinum Equity) e a divisão de vitaminas (Nature's Bounty). Nos EUA, o KitKat é da Hershey."),
-    ("pg", "Procter & Gamble", [("gillette", "Gillette"), ("oralb", "Oral-B"), ("pantene", "Pantene"), (None, "Pampers"), (None, "Ariel")],
-     "Sem mudança nas marcas mostradas. A empresa corta até 7 mil vagas em uma reestruturação e não disse quais marcas ou países sairão."),
-    ("unilever", "Unilever", [("dove", "Dove"), ("knorr", "Knorr", True), (None, "Hellmann's", True), (None, "Omo"), (None, "Rexona")],
-     "O sorvete (Kibon, Magnum) saiu em dez/2025. Knorr e Hellmann's devem passar à McCormick, em acordo anunciado em mar/2026 e previsto para até meados de 2027."),
-    (None, "Kimberly-Clark", [("bandaid", "Band-Aid"), ("listerine", "Listerine"), (None, "Neutrogena"), (None, "Huggies"), (None, "Kleenex")],
-     "Este cartão substitui a Johnson & Johnson: ela separou os produtos de consumo na Kenvue (2023), que tinha Band-Aid, Listerine e Neutrogena. Em 2/11/2026 a Kimberly-Clark concluiu a compra da Kenvue."),
-    ("cocacola", "Coca-Cola", [("sprite", "Sprite"), ("powerade", "Powerade"), (None, "Fanta"), (None, "Del Valle"), (None, "fairlife")],
-     "Sem mudança nas quatro marcas originais. A fairlife foi comprada por completo em 2020. A venda do controle da engarrafadora africana (CCBA) está pendente."),
-    ("pepsico", "PepsiCo", [("lays", "Lay's"), ("gatorade", "Gatorade"), (None, "Doritos"), (None, "Quaker"), (None, "poppi")],
-     "A Tropicana foi vendida em 2022 (a PepsiCo ficou com 39%). A Siete (jan/2025) e a poppi (mai/2025) foram compradas. A Rockstar nos EUA e Canadá foi para a Celsius em 2025."),
-    ("mars", "Mars", [("mms", "M&M's"), (None, "Snickers"), (None, "Twix"), (None, "Pedigree"), (None, "Pringles")],
-     "Em dez/2025 a Mars concluiu a compra da Kellanova (ex-Kellogg's), o que trouxe Pringles, Cheez-It e Pop-Tarts."),
-    (None, "Ferrero", [(None, "Nutella"), (None, "Kinder"), (None, "Ferrero Rocher"), (None, "Frosted Flakes"), (None, "Froot Loops")],
-     "Este cartão substitui a Kellogg's, que deixou de existir como empresa: os salgadinhos foram para a Mars (Kellanova) e os cereais de EUA, Canadá e Caribe para a Ferrero (WK Kellogg, set/2025). Nos demais países, os cereais Kellogg's ficaram com a Mars."),
-    ("generalmills", "General Mills", [("cheerios", "Cheerios"), (None, "Nature Valley"), (None, "Betty Crocker"), (None, "Blue Buffalo"), (None, "Häagen-Dazs")],
-     "Vendeu o iogurte nos EUA e no Canadá e, em set/2026, o negócio brasileiro (Yoki e Kitano) à 3corações. Fora da América do Norte, o Cheerios costuma ser vendido pela Cereal Partners Worldwide, sociedade com a Nestlé."),
-    ("kraftheinz", "Kraft Heinz", [(None, "Heinz"), (None, "Philadelphia"), (None, "Oscar Mayer"), (None, "Capri Sun"), (None, "Kool-Aid")],
-     "A divisão em duas empresas, anunciada em set/2025, foi pausada em fev/2026. Em nov/2026 acertou a venda do café norte-americano (Maxwell House) à One Rock, prevista para meados de 2027."),
+    ("nestle", "Nestlé", "alimentos e café", "mais de 2.000 marcas",
+     [("nescafe", "Nescafé"), (None, "Nespresso"), ("purina", "Purina"), (None, "Starbucks"), ("kitkat", "KitKat"), (None, "Maggi"),
+      (None, "Nido (Ninho)"), (None, "Gerber"), (None, "S.Pellegrino", "pend"), (None, "Milo"), (None, "Outras (+1.990)", "oth")],
+     "A Nestlé não publica ranking de vendas: as 10 marcas são uma seleção a partir do que ela cita como maior (Nescafé, Nespresso e Starbucks são as \"bilionárias\" que ela nomeia; a Starbucks é licenciada). Tracejado: a venda de 50% do negócio de águas está anunciada e pendente. O negócio de vitaminas também está à venda."),
+    ("pg", "Procter & Gamble", "higiene, beleza e limpeza", "61 marcas na lista da empresa",
+     [(None, "Pampers"), (None, "Tide"), ("gillette", "Gillette"), ("oralb", "Oral-B"), (None, "Always"), ("pantene", "Pantene"),
+      (None, "Ariel"), (None, "Charmin"), (None, "Head & Shoulders"), (None, "Olay"), (None, "Outras (51)", "oth")],
+     "A P&G não publica vendas por marca: a ordem é uma estimativa a partir das categorias em que ela se declara líder. A lista de 61 marcas é a do site dos EUA e é incompleta (omite a Fairy, por exemplo). Em ago/2026 a empresa acertou a compra da Thorne e segue em uma reestruturação que não nomeou marcas."),
+    ("cocacola", "Coca-Cola", "bebidas", "cerca de 200 marcas",
+     [(None, "Coca-Cola"), (None, "Diet Coke"), (None, "Fanta"), ("sprite", "Sprite"), (None, "Coca-Cola Zero Sugar"), ("powerade", "Powerade"),
+      (None, "Minute Maid"), (None, "Dasani"), (None, "fairlife"), (None, "Del Valle"), (None, "Outras (~190)", "oth")],
+     "A empresa não publica ranking: as quatro primeiras seguem o valor de marca divulgado pela imprensa e as demais são uma seleção entre as 32 marcas \"bilionárias\" que ela diz ter. Variantes (Zero, Diet) entram na marca principal. A venda do controle da engarrafadora africana está pendente, mas ela não é uma marca."),
+    ("mars", "Mars", "doces e ração para pets", "104 marcas no site da empresa",
+     [("mms", "M&M's"), (None, "Snickers"), (None, "Royal Canin"), (None, "Pedigree"), (None, "Pringles"), (None, "Twix"),
+      (None, "Skittles"), (None, "Whiskas"), (None, "Cheez-It"), (None, "Sheba"), (None, "Outras (94)", "oth")],
+     "A Mars é privada e não publica vendas por marca: as 10 são uma seleção, por reconhecimento, entre as \"bilionárias\" do site. A lista de 104 inclui clínicas veterinárias e ainda não mostra toda a carteira da Kellanova, comprada em dez/2025 (Pringles, Cheez-It, Pop-Tarts)."),
+    (None, "Kimberly-Clark", "papel, fraldas e saúde", "30 marcas na página da empresa",
+     [(None, "Huggies"), ("listerine", "Listerine"), (None, "Cottonelle"), (None, "Neutrogena"), (None, "Depend"), (None, "Tylenol"),
+      (None, "Kleenex"), (None, "Johnson's Baby"), (None, "Kotex"), (None, "Scott"), (None, "Outras (20)", "oth")],
+     "As 10 são as marcas \"bilionárias\" que a empresa declarou em 2/11/2026, na ordem em que ela as escreveu (não é ranking de vendas). Este cartão substitui a Johnson & Johnson: ela separou o consumo na Kenvue (2023), que a Kimberly-Clark comprou em 2/11/2026. O total real é maior que 30: os documentos da empresa citam cerca de 44."),
 ]
 
 
@@ -75,10 +76,10 @@ def esc(t):
 
 
 def brand_map():
-    """Um cartão por empresa: a marca guarda-chuva grande no centro, as marcas ao redor, ligadas por linhas."""
-    cx, cy, rx, ry, sw, sh = 180, 132, 132, 92, 84, 36
+    """Um cartão por empresa: a marca guarda-chuva grande no centro, as 10 maiores marcas ao redor e um bloco "Outras (N)"."""
+    W, H, cx, cy, rx, ry, sw, sh = 720, 300, 360, 150, 290, 125, 104, 32
     cards = []
-    for slug, name, sats, cap in MARCAS:
+    for slug, name, ramo, total, sats, cap in MARCAS:
         n = len(sats)
         pts = []
         for i in range(n):
@@ -86,25 +87,29 @@ def brand_map():
             pts.append((cx + rx * math.cos(a), cy + ry * math.sin(a)))
         lines = "".join(f'<line class="bl" x1="{cx}" y1="{cy}" x2="{x:.1f}" y2="{y:.1f}"/>' for x, y in pts)
         sat_svg = ""
+        chips = ""
         for sat, (x, y) in zip(sats, pts):
             sslug, sname = sat[0], sat[1]
-            pend = " pend" if len(sat) > 2 else ""
+            flag = sat[2] if len(sat) > 2 else ""
+            cls = " pend" if flag == "pend" else (" oth" if flag == "oth" else "")
             if sslug:
-                sat_svg += (f'<rect class="tile{pend}" x="{x - sw / 2:.1f}" y="{y - sh / 2:.1f}" width="{sw}" height="{sh}" rx="8"/>'
+                sat_svg += (f'<rect class="tile{cls}" x="{x - sw / 2:.1f}" y="{y - sh / 2:.1f}" width="{sw}" height="{sh}" rx="8"/>'
                             f'<image href="{data_uri(sslug)}" x="{x - sw / 2 + 8:.1f}" y="{y - sh / 2 + 4:.1f}" width="{sw - 16}" height="{sh - 8}" preserveAspectRatio="xMidYMid meet"/>')
             else:
-                fs = ' style="font-size:10.5px"' if len(sname) > 11 else ""
-                sat_svg += (f'<rect class="pill{pend}" x="{x - sw / 2:.1f}" y="{y - sh / 2:.1f}" width="{sw}" height="{sh}" rx="18"/>'
-                            f'<text class="pt"{fs} x="{x:.1f}" y="{y + 4:.1f}" text-anchor="middle">{esc(sname)}</text>')
-        root = f'<rect class="root" x="{cx - 75}" y="{cy - 40}" width="150" height="80" rx="12"/>'
+                fs = ' style="font-size:%.1fpx"' % (11 if len(sname) <= 13 else 9.5 if len(sname) <= 17 else 8.5)
+                sat_svg += (f'<rect class="pill{cls}" x="{x - sw / 2:.1f}" y="{y - sh / 2:.1f}" width="{sw}" height="{sh}" rx="16"/>'
+                            f'<text class="pt"{fs} x="{x:.1f}" y="{y + 3.8:.1f}" text-anchor="middle">{esc(sname)}</text>')
+            chips += f'<li class="{cls.strip()}">{esc(sname)}</li>'
+        root = f'<rect class="root" x="{cx - 88}" y="{cy - 46}" width="176" height="92" rx="14"/>'
         if slug:
-            root += f'<image href="{data_uri(slug)}" x="{cx - 64}" y="{cy - 34}" width="128" height="50" preserveAspectRatio="xMidYMid meet"/>'
+            root += f'<image href="{data_uri(slug)}" x="{cx - 74}" y="{cy - 40}" width="148" height="58" preserveAspectRatio="xMidYMid meet"/>'
         else:
             root += f'<text class="rn" x="{cx}" y="{cy - 2}" text-anchor="middle">{esc(name)}</text>'
-        root += f'<text class="rl" x="{cx}" y="{cy + 31}" text-anchor="middle">MARCA GUARDA-CHUVA</text>'
-        label = f'{name} controla ' + ", ".join(s[1] for s in sats)
-        cards.append(f'<figure class="bm"><svg viewBox="0 0 360 256" role="img" aria-label="{esc(label)}">{lines}{sat_svg}{root}</svg>'
-                     f'<figcaption>{esc(cap)}</figcaption></figure>')
+        root += f'<text class="rl" x="{cx}" y="{cy + 34}" text-anchor="middle">{esc(ramo.upper())}</text>'
+        label = f'{name} ({ramo}) controla ' + ", ".join(s[1] for s in sats)
+        head = f'<div class="bmh"><b>{esc(name)}</b><span>{esc(ramo)} · {esc(total)}</span></div>'
+        cards.append(f'<figure class="bm">{head}<svg viewBox="0 0 {W} {H}" role="img" aria-label="{esc(label)}">{lines}{sat_svg}{root}</svg>'
+                     f'<ul class="bml">{chips}</ul><figcaption>{esc(cap)}</figcaption></figure>')
     return '<div class="bmap">' + "".join(cards) + "</div>"
 
 
